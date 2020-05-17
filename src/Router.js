@@ -9,6 +9,9 @@ import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions";
 import { ContextLayout } from "./utility/context/Layout";
 
 // Route-based code splitting
+const add_teacher = lazy(() => import("./views/lms/teacher/add_teacher"));
+
+
 const analyticsDashboard = lazy(() =>
   import("./views/dashboard/analytics/AnalyticsDashboard")
 );
@@ -246,6 +249,7 @@ class AppRouter extends React.Component {
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
           />
+          <AppRoute path="/teacher/add_teacher" component={add_teacher} />
           <AppRoute path="/teacher/add-teacher" component={AddTeacher} />
           <AppRoute
             path="/email"
