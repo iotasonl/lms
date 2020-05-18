@@ -43,11 +43,12 @@ class AddTeacher extends React.Component {
       { value: "yellow", label: "Yellow" },
     ];
     const formSchema = Yup.object().shape({
-      phone: Yup.number()
-        .required("Teacher's name is required")
-        .min(4, "Too Short"),
       name: Yup.string().required("Required").min(4, "Too Short"),
       email: Yup.string().email("Invalid email").required("Required"),
+      phone: Yup.number()
+        .required("Teacher's name is required")
+        .min(10, "Enter a valid mobile number")
+        .max(10, "Enter a valid mobile number"),
       image: Yup.mixed()
         .required("A file is required")
         .test(
@@ -60,22 +61,54 @@ class AddTeacher extends React.Component {
           "Unsupported Format",
           (value) => value && SUPPORTED_FORMATS.includes(value.type)
         ),
-      select: Yup.string().required("Topic is required!"),
+      class: Yup.string().ensure().required("Class is required!"),
+      subject: Yup.string().ensure().required("Subject is required!"),
+      State: Yup.string().ensure().required("Subject is required!"),
+      city: Yup.string().required("Required"),
       address: Yup.string().required("Address is required!"),
-      class1: Yup.string().ensure().required("Topic is required!"),
+      pin: Yup.number()
+        .required("Pin Code is required")
+        .min(6, "Enter a valid Pin Code")
+        .max(6, "Enter a valid Pin Code"),
     });
+
+    let data = {
+      _id: { $oid: "5ebfa14f9cde69cb447a3cee" },
+      board_name: "CBSE",
+      nick_name: "CBSE",
+      zone_status: "CENTRAL",
+      status: true,
+      c_date: { $date: 1589636775476 },
+      d_date: { $date: 1589636775476 },
+    };
 
     return (
       <React.Fragment>
         <Breadcrumbs
-          breadCrumbTitle="Create Organization"
-          breadCrumbParent="Organization"
-          breadCrumbActive="Create Organization"
+          breadCrumbTitle="Teacher Registration"
+          breadCrumbParent="Teacher"
+          breadCrumbActive="Teacher Registration"
+          rightOptions={[
+            {
+              title: "Bulk Upload",
+              link: "/teacher/tracherBulkUpload",
+            },
+            {
+              title: "Bulk Upload",
+              link: "/teacher/tracherBulkUpload",
+            },
+          ]}
         />
         <Row>
           <Col lg="12" md="12">
             <Card>
               <CardHeader>
+                <p>{data.board_name}</p>
+                <p>{data.nick_name}</p>
+                <p>{data.zone_status}</p>
+                <p>{data.status}</p>
+                <p>{data.c_date.$date}</p>
+                <p>{data.d_date.$date}</p>
                 <CardTitle>Teacher Registration</CardTitle>
               </CardHeader>
               <CardBody>
@@ -84,10 +117,14 @@ class AddTeacher extends React.Component {
                     name: "",
                     email: "",
                     phone: "",
-                    address: "",
                     image: undefined,
-                    class: [colourOptions[4], colourOptions[5]],
                     gender: "",
+                    class: [colourOptions[4], colourOptions[5]],
+                    subject: [colourOptions[4], colourOptions[5]],
+                    state: "",
+                    city: "",
+                    address: "",
+                    pin: "",
                   }}
                   validationSchema={formSchema}
                   onSubmit={(values) => {
@@ -152,7 +189,7 @@ class AddTeacher extends React.Component {
                             }
                           />
                         </div>
-                        <div className="col-md-6 col-sm-6">
+                        <div className="col-md-4 col-sm-4">
                           <TextInput
                             type="number"
                             name="phone"
@@ -174,7 +211,7 @@ class AddTeacher extends React.Component {
                             }
                           />
                         </div>
-                        <div className="col-md-6 col-sm-6">
+                        <div className="col-md-4 col-sm-4">
                           <FileInput
                             id="image"
                             name="image"
@@ -193,6 +230,33 @@ class AddTeacher extends React.Component {
                               ) : null
                             }
                           />
+                        </div>
+                        <div className="col-md-4 col-sm-4">
+                          <br />
+                          <div
+                            style={{
+                              border: "1px solid #ccc",
+                              borderRadius: "5px",
+                              padding: "4px 0 4px 15px",
+                            }}
+                          >
+                            <RadioInput
+                              className="d-inline-block mr-1"
+                              label="Male"
+                              defaultChecked={true}
+                              name="gender"
+                              value="1"
+                            />
+                            <RadioInput
+                              className="d-inline-block mr-1"
+                              label="Female"
+                              defaultChecked={true}
+                              name="gender"
+                              value="0"
+                            />
+                          </div>
+                          <br />
+                          <br />
                         </div>
                         <div className="col-md-6 col-sm-6">
                           <MultiSelect
@@ -221,7 +285,7 @@ class AddTeacher extends React.Component {
                             defaultValue={values.class}
                             change={setFieldValue}
                             blur={setFieldTouched}
-                            placeholder="Select Classes"
+                            placeholder="Select Subject"
                             className={`React ${
                               errors.subject && touched.subject && "is-invalid"
                             }`}
@@ -234,28 +298,11 @@ class AddTeacher extends React.Component {
                             }
                           />
                         </div>
-                        <div className="col-md-6 col-sm-6">
-                          <RadioInput
-                            className="d-inline-block mr-1"
-                            label="Male"
-                            defaultChecked={true}
-                            name="gender"
-                            value="1"
-                          />
-                          <RadioInput
-                            className="d-inline-block mr-1"
-                            label="Female"
-                            defaultChecked={true}
-                            name="gender"
-                            value="0"
-                          />
-                          <br />
-                          <br />
-                        </div>
+
                         <div className="col-md-6 col-sm-6">
                           <SelectInput
-                            id="state"
                             name="state"
+                            label="Select State"
                             defaultValue={colourOptions[0]}
                             options={colourOptions}
                             change={handleChange}
@@ -297,7 +344,7 @@ class AddTeacher extends React.Component {
                         <div className="col-md-6 col-sm-6">
                           <Textarea
                             name="address"
-                            rows="2"
+                            rows="1"
                             placeholder="Enter Address"
                             value={values.address}
                             change={handleChange}
@@ -309,6 +356,28 @@ class AddTeacher extends React.Component {
                               errors.address && touched.address ? (
                                 <div className="invalid-tooltip mt-25">
                                   {errors.address}
+                                </div>
+                              ) : null
+                            }
+                          />
+                        </div>
+                        <div className="col-md-6 col-sm-6">
+                          <TextInput
+                            type="number"
+                            name="pin"
+                            id="pin"
+                            placeholder="Pin Code"
+                            value={values.phone}
+                            change={handleChange}
+                            blur={handleBlur}
+                            icon="Droplet"
+                            className={`form-control ${
+                              errors.pin && touched.pin && "is-invalid"
+                            }`}
+                            errorDiv={
+                              errors.pin && touched.pin ? (
+                                <div className="invalid-tooltip mt-25">
+                                  {errors.pin}
                                 </div>
                               ) : null
                             }
