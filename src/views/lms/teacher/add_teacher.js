@@ -65,22 +65,28 @@ class AddTeacher extends React.Component {
                                         first_name: "",
                                         last_name: "",
                                         username: "",
+                                        password: "",
                                         father_name: "",
-                                        gender: null,
-                                        dob: "",
-                                        year: "",
-                                        pincode: "",
                                         email: "",
                                         phone: "",
                                         alt_phone: "",
+                                        gender: null,
+                                        dob: "",
                                         address: "",
+                                        state: "",
                                         city: "",
+                                        pincode: "",
+                                        profile_pic: undefined,
+
                                         experience: "",
                                         qualification: "",
                                         doj: "",
                                         aadhar: "",
                                         pan_card: "",
-                                        image: undefined,
+
+                                        class: "",
+                                        subject: "",
+                                        
                                     }}
                                     validationSchema={formSchema}
                                     onSubmit={this.handleSubmit}
