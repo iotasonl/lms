@@ -10,7 +10,10 @@ import { ContextLayout } from "./utility/context/Layout";
 
 // Route-based code splitting
 const add_teacher = lazy(() => import("./views/lms/teacher/add_teacher"));
-
+const studentBulkUpload = lazy(() =>
+  import("./views/lms/student/StudentBulkUpload")
+);
+const studentList = lazy(() => import("./views/lms/student/StudentList"));
 
 const analyticsDashboard = lazy(() =>
   import("./views/dashboard/analytics/AnalyticsDashboard")
@@ -154,6 +157,10 @@ const accountSettings = lazy(() =>
 );
 const invoice = lazy(() => import("./views/pages/invoice/Invoice"));
 const comingSoon = lazy(() => import("./views/pages/misc/ComingSoon"));
+const Congs = lazy(() => import("./views/pages/misc/views/Congs"));
+const RegidtrationEmail = lazy(() =>
+  import("./views/pages/misc/views/RegistrationEmail")
+);
 const error404 = lazy(() => import("./views/pages/misc/error/404"));
 const error500 = lazy(() => import("./views/pages/misc/error/500"));
 const authorized = lazy(() => import("./views/pages/misc/NotAuthorized"));
@@ -253,6 +260,11 @@ class AppRouter extends React.Component {
           />
           <AppRoute path="/teacher/add_teacher" component={add_teacher} />
           <AppRoute path="/teacher/add-teacher" component={AddTeacher} />
+          <AppRoute
+            path="/student/student-bulk-upload"
+            component={studentBulkUpload}
+          />
+          <AppRoute path="/student/student-list" component={studentList} />
           <AppRoute
             path="/email"
             exact
@@ -371,6 +383,12 @@ class AppRouter extends React.Component {
             component={comingSoon}
             fullLayout
           />
+          <AppRoute
+            path="/misc/registration-email"
+            component={RegidtrationEmail}
+            fullLayout
+          />
+          <AppRoute path="/misc/congs" component={Congs} fullLayout />
           <AppRoute path="/misc/error/404" component={error404} fullLayout />
           <AppRoute path="/pages/login" component={Login} fullLayout />
           <AppRoute path="/pages/register" component={register} fullLayout />

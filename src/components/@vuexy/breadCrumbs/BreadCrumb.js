@@ -12,15 +12,15 @@ import { NavLink } from "react-router-dom";
 class BreadCrumbs extends React.Component {
   render() {
     let rightOptions = this.props.rightOptions;
-    let breadCrumbsRightOptions = rightOptions.map((option) => {
-      return (
-        <DropdownItem tag="li">
-          <NavLink className="text-dark w-100" to={option.link}>
-            {option.title}
-          </NavLink>
-        </DropdownItem>
-      );
-    });
+    // let breadCrumbsRightOptions = rightOptions.map((option) => {
+    //   return (
+    //     <DropdownItem tag="li">
+    //       <NavLink className="text-dark w-100" to={option.link}>
+    //         {option.title}
+    //       </NavLink>
+    //     </DropdownItem>
+    //   );
+    // });
     return (
       <div className="content-header row">
         <div className="content-header-left col-md-9 col-12 mb-2">
