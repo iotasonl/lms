@@ -57,15 +57,15 @@ export const TextInput = (props) => {
 
 export const SelectInput = (props) => {
   return (
-    <FormGroup className="has-icon-left form-label-group position-relative">
-      <Label for={props.id}>{props.label}</Label>
+    <FormGroup>
+      <Label for={props.name}>{props.label}</Label>
       <Select
         className={props.className}
         classNamePrefix={props.classNamePrefix}
         defaultValue={props.defaultValue}
         name={props.name}
         options={props.options}
-        id={props.id}
+        id={props.name}
         onChange={props.change}
         onBlur={props.blur}
       />
@@ -110,15 +110,6 @@ export const Textarea = (props) => {
     </div>
   );
 };
-
-const colourOptions = [
-  { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-  { value: "blue", label: "Blue", color: "#0052CC", isFixed: true },
-  { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
-  { value: "red", label: "Red", color: "#FF5630", isFixed: false },
-  { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
-  { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false },
-];
 
 export const MultiSelect = (props) => {
   return (

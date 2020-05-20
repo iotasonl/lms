@@ -161,7 +161,9 @@ const error500 = lazy(() => import("./views/pages/misc/error/500"));
 const authorized = lazy(() => import("./views/pages/misc/NotAuthorized"));
 const maintenance = lazy(() => import("./views/pages/misc/Maintenance"));
 const LmsSetup = lazy(() => import("./views/pages/misc/LmsSetup"));
-const LmsSetupClass = lazy(() => import("./views/pages/misc/LmsSetupClass"));
+const AfterLoginLmsSetup = lazy(() =>
+  import("./views/pages/misc/AfterLoginLmsSetup")
+);
 const apex = lazy(() => import("./views/charts/apex/ApexCharts"));
 const chartjs = lazy(() => import("./views/charts/chart-js/ChartJS"));
 const extreme = lazy(() => import("./views/charts/recharts/Recharts"));
@@ -404,8 +406,8 @@ class AppRouter extends React.Component {
           />
           <AppRoute path="/misc/LmsSetup" component={LmsSetup} fullLayout />
           <AppRoute
-            path="/misc/LmsSetupClass"
-            component={LmsSetupClass}
+            path="/misc/AfterLoginLmsSetup"
+            component={AfterLoginLmsSetup}
             fullLayout
           />
           <AppRoute path="/app/user/list" component={userList} />

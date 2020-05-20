@@ -1,16 +1,26 @@
-import React from "react"
+import React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
   UncontrolledButtonDropdown,
   DropdownMenu,
   DropdownItem,
-  DropdownToggle
-} from "reactstrap"
-import { Home, Settings } from "react-feather"
-import { NavLink } from "react-router-dom"
+  DropdownToggle,
+} from "reactstrap";
+import { Home, Settings } from "react-feather";
+import { NavLink } from "react-router-dom";
 class BreadCrumbs extends React.Component {
   render() {
+    let rightOptions = this.props.rightOptions;
+    let breadCrumbsRightOptions = rightOptions.map((option) => {
+      return (
+        <DropdownItem tag="li">
+          <NavLink className="text-dark w-100" to={option.link}>
+            {option.title}
+          </NavLink>
+        </DropdownItem>
+      );
+    });
     return (
       <div className="content-header row">
         <div className="content-header-left col-md-9 col-12 mb-2">
@@ -66,24 +76,14 @@ class BreadCrumbs extends React.Component {
                 <Settings
                   size={14}
                   style={{
-                    left: 0
+                    left: 0,
                   }}
                 />
               </DropdownToggle>
               <DropdownMenu tag="ul" right>
                 <DropdownItem tag="li">
-                  <NavLink className="text-dark w-100" to="/chat">
-                    Chat
-                  </NavLink>
-                </DropdownItem>
-                <DropdownItem tag="li">
-                  <NavLink className="text-dark w-100" to="/email/inbox">
-                    Email
-                  </NavLink>
-                </DropdownItem>
-                <DropdownItem tag="li">
-                  <NavLink className="text-dark w-100" to="/calendar">
-                    Calendar
+                  <NavLink className="text-dark w-100" to="/abc">
+                    Hello
                   </NavLink>
                 </DropdownItem>
               </DropdownMenu>
@@ -91,7 +91,7 @@ class BreadCrumbs extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-export default BreadCrumbs
+export default BreadCrumbs;
