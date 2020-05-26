@@ -1,12 +1,14 @@
 import React from "react";
-import { Button, Card, CardBody, CardHeader, CardTitle, Col, FormGroup, Label, Row, } from "reactstrap";
+import { Button, Card, CardBody, CardHeader, CardTitle, Col, FormGroup, Label, Row, CustomInput } from "reactstrap";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
-import Select from "react-select";
 import { FormikReactSelect, } from "../../../components/hrmsComponent/form/input";
+import Select from "react-select";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/themes/light.css";
+import "../../../assets/scss/plugins/forms/flatpickr/flatpickr.scss"
 
 const formSchema = Yup.object().shape({
     gender: Yup.object()
@@ -16,9 +18,25 @@ const formSchema = Yup.object().shape({
         })
         .nullable()
         .required("Gender is required!"),
-    phone: Yup.number().required("Teacher's name is required").min(4, "Too Short"),
-    name: Yup.string().required("Required").min(4, "Too Short"),
-    email: Yup.string().email("Invalid email").required("Required"),
+    first_name: Yup.string().required("First name is required"),
+    last_name: Yup.string().required("Last name is required"),
+    father_name: Yup.string().required("Father name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    phone: Yup.number().required("Phone number is required"),
+    dob: Yup.string().required("Date of birth is required"),
+    address: Yup.string().required("Address is required"),
+    state: Yup.string().required("State is required"),
+    city: Yup.string().required("City is required"),
+    doj: Yup.string().required("Date of joining is required"),
+    aadhar: Yup.string().required("Aadhar card is required"),
+    pan_card: Yup.string().required("Aadhar card is required"),
+    class: Yup.object()
+        .shape({
+            label: Yup.string().required(),
+            value: Yup.string().required()
+        })
+        .nullable()
+        .required("Class is required!"),
 });
 
 class AddTeacher extends React.Component {
@@ -36,13 +54,6 @@ class AddTeacher extends React.Component {
             console.log(JSON.stringify(payload, null, 2));
             setSubmitting(false);
         }, 1000);
-    };
-
-    handleChange = value => {
-        this.props.onChange(this.props.name, value);
-    };
-    handleBlur = () => {
-        this.props.onBlur(this.props.name, true);
     };
 
     render() {
@@ -84,9 +95,8 @@ class AddTeacher extends React.Component {
                                         aadhar: "",
                                         pan_card: "",
 
-                                        class: "",
+                                        class: null,
                                         subject: "",
-                                        
                                     }}
                                     validationSchema={formSchema}
                                     onSubmit={this.handleSubmit}
@@ -170,8 +180,182 @@ class AddTeacher extends React.Component {
                                                             <div className="invalid-tooltip mt-25">{errors.gender}</div>
                                                         ) : null}
                                                     </FormGroup>
-                                                    
-                                                    
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="dob">Date of Birth</Label>
+                                                        <Flatpickr
+                                                            name="dob"
+                                                            className={`form-control ${errors.dob && touched.dob && "is-invalid"}`}
+                                                            value={values.dob}
+                                                            onChange={date => {
+                                                                setFieldValue("dob", date)
+                                                            }}
+                                                            onBlur={date => {
+                                                                setFieldTouched("dob", date)
+                                                            }}
+                                                        />
+                                                        {errors.dob && touched.dob ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.dob}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="address">Address</Label>
+                                                        <Field name="address" id="address" className={`form-control ${errors.address && touched.address && "is-invalid"}`} />
+                                                        {errors.address && touched.address ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.address}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="state">State</Label>
+                                                        <FormikReactSelect
+                                                            className={`react-select ${errors.state && touched.state && "is-invalid"}`}
+                                                            name="state"
+                                                            id="state"
+                                                            value={values.state}
+                                                            options={[
+                                                                { value: 'Jharkhand', label: 'Jharkhand' },
+                                                                { value: 'Bihar', label: 'Bihar' },
+                                                            ]}
+                                                            onChange={setFieldValue}
+                                                            onBlur={setFieldTouched}
+                                                        />
+                                                        {errors.state && touched.state ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.state}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="city">City</Label>
+                                                        <FormikReactSelect
+                                                            className={`react-select ${errors.city && touched.city && "is-invalid"}`}
+                                                            name="city"
+                                                            id="city"
+                                                            value={values.city}
+                                                            options={[
+                                                                { value: 'Ranchi', label: 'Ranchi' },
+                                                                { value: 'Bokaro', label: 'Bokaro' },
+                                                            ]}
+                                                            onChange={setFieldValue}
+                                                            onBlur={setFieldTouched}
+                                                        />
+                                                        {errors.city && touched.city ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.city}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="pincode">Pincode</Label>
+                                                        <Field name="pincode" id="pincode" className={`form-control ${errors.pincode && touched.pincode && "is-invalid"}`} />
+                                                        {errors.pincode && touched.pincode ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.pincode}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="experience">Experience</Label>
+                                                        <Field name="experience" id="experience" className={`form-control ${errors.experience && touched.experience && "is-invalid"}`} />
+                                                        {errors.experience && touched.experience ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.experience}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="qualification">Qualification</Label>
+                                                        <Field name="qualification" id="qualification" className={`form-control ${errors.qualification && touched.qualification && "is-invalid"}`} />
+                                                        {errors.qualification && touched.qualification ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.qualification}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="doj">Date of Joining</Label>
+                                                        <Flatpickr
+                                                            name="doj"
+                                                            className={`form-control ${errors.doj && touched.doj && "is-invalid"}`}
+                                                            value={values.doj}
+                                                            onChange={date => {
+                                                                setFieldValue("doj", date)
+                                                            }}
+                                                            onBlur={date => {
+                                                                setFieldTouched("doj", date)
+                                                            }}
+                                                        />
+
+                                                        {errors.doj && touched.doj ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.doj}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="aadhar">Aadhar</Label>
+                                                        <CustomInput
+                                                            type="file"
+                                                            id="aadhar"
+                                                            name="aadhar"
+                                                            className={`${errors.aadhar && touched.aadhar && "is-invalid"}`}
+                                                            onChange={aadhar => {
+                                                                setFieldValue("aadhar", aadhar)
+                                                            }}
+                                                            onBlur={aadhar => {
+                                                                setFieldTouched("aadhar", aadhar)
+                                                            }}
+                                                        />
+                                                        {errors.aadhar && touched.aadhar ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.aadhar}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="pan_card">Pan Card</Label>
+                                                        <CustomInput
+                                                            type="file"
+                                                            id="pan_card"
+                                                            name="pan_card"
+                                                            className={`${errors.pan_card && touched.pan_card && "is-invalid"}`}
+                                                            onChange={pan_card => {
+                                                                setFieldValue("pan_card", pan_card)
+                                                            }}
+                                                            onBlur={pan_card => {
+                                                                setFieldTouched("pan_card", pan_card)
+                                                            }}
+                                                        />
+                                                        {errors.pan_card && touched.pan_card ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.pan_card}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+                                                    <FormGroup className="col-md-3 col-sm-3">
+                                                        <Label for="class">Select Class</Label>
+                                                        <Select
+                                                            name="class"
+                                                            id="class"
+                                                            closeMenuOnSelect={false}
+                                                            defaultValue=""
+                                                            isMulti={true}
+                                                            options={[
+                                                                { value: 'Ranchi', label: 'Ranchi' },
+                                                                { value: 'Bokaro', label: 'Bokaro' },
+                                                            ]}
+                                                            classNamePrefix="select"
+                                                            className={`${errors.class && touched.class && "is-invalid"}`}
+                                                            onChange={classes => {
+                                                                setFieldValue("class", classes)
+                                                            }}
+                                                            onBlur={classes => {
+                                                            setFieldTouched("class", classes)
+                                                            }}
+                                                        />
+                                                        {errors.class && touched.class ? (
+                                                            <div className="invalid-tooltip mt-25">{errors.class}</div>
+                                                        ) : null}
+                                                    </FormGroup>
+
+
+
+
+
                                                 </div>
                                                 <Button.Ripple color="primary" type="submit">
                                                     Submit
