@@ -1,21 +1,9 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  Col,
-  FormGroup,
-  Label,
-  Row,
-} from "reactstrap";
+import { Button, Card, CardBody, Col, FormGroup, Label, Row } from "reactstrap";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
-import Select from "react-select";
 import {
   FormikReactSelect,
   RadioInput,
@@ -71,11 +59,13 @@ class AddStudent extends React.Component {
 
   handleChange = (value) => {
     this.props.onChange(this.props.name, value);
+    console.log(value.target.value);
   };
   handleBlur = () => {
     this.props.onBlur(this.props.name, true);
   };
 
+  parentPhone = 9876543210;
   render() {
     return (
       <React.Fragment>
@@ -133,6 +123,9 @@ class AddStudent extends React.Component {
                           <Field
                             name="first_name"
                             id="first_name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.first_name}
                             className={`form-control ${
                               errors.first_name &&
                               touched.first_name &&
@@ -151,6 +144,9 @@ class AddStudent extends React.Component {
                           <Field
                             name="last_name"
                             id="last_name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.last_name}
                             className={`form-control ${
                               errors.last_name &&
                               touched.last_name &&
@@ -169,6 +165,9 @@ class AddStudent extends React.Component {
                           <Field
                             name="username"
                             id="username"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.username}
                             className={`form-control ${
                               errors.username &&
                               touched.username &&
@@ -188,6 +187,9 @@ class AddStudent extends React.Component {
                             type="email"
                             name="email"
                             id="email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.email}
                             className={`form-control ${
                               errors.email && touched.email && "is-invalid"
                             }`}
@@ -204,6 +206,10 @@ class AddStudent extends React.Component {
                           <Field
                             name="phone"
                             id="phone"
+                            type="number"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.phone}
                             className={`form-control ${
                               errors.phone && touched.phone && "is-invalid"
                             }`}
@@ -216,26 +222,24 @@ class AddStudent extends React.Component {
                         </FormGroup>
                         {/*STUDENT CLASS*/}
                         <FormGroup className="col-md-3 col-sm-3">
-                          <Label for="studentClass">Class</Label>
+                          <Label for="gender">Class</Label>
                           <FormikReactSelect
-                            className={`${
-                              errors.studentClass &&
-                              touched.studentClass &&
-                              "is-invalid"
+                            className={`react-select ${
+                              errors.class && touched.class && "is-invalid"
                             }`}
-                            name="studentClass"
-                            id="studentClass"
-                            value={values.studentClass}
+                            name="class"
+                            id="class"
+                            value={values.class}
                             options={[
-                              { value: "1", label: "1" },
-                              { value: "2", label: "3" },
+                              { value: "Male", label: "Male" },
+                              { value: "Female", label: "Female" },
                             ]}
                             onChange={setFieldValue}
                             onBlur={setFieldTouched}
                           />
-                          {errors.studentClass && touched.studentClass ? (
+                          {errors.gender && touched.gender ? (
                             <div className="invalid-tooltip mt-25">
-                              {errors.studentClass}
+                              {errors.gender}
                             </div>
                           ) : null}
                         </FormGroup>
@@ -256,8 +260,8 @@ class AddStudent extends React.Component {
                               name="gender"
                               value="1"
                               className="d-inline-block mr-1"
-                              onChange={setFieldValue}
-                              onBlur={setFieldTouched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                             <RadioInput
                               label="Female"
@@ -265,8 +269,8 @@ class AddStudent extends React.Component {
                               name="gender"
                               value="2"
                               className="d-inline-block mr-1"
-                              onChange={setFieldValue}
-                              onBlur={setFieldTouched}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                           </div>
                           {errors.gender && touched.gender ? (
@@ -287,8 +291,8 @@ class AddStudent extends React.Component {
                               altFormat: "F j, Y",
                               dateFormat: "Y-m-d",
                             }}
-                            onChange={setFieldValue}
-                            onBlur={setFieldTouched}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                           />
                         </FormGroup>
                         {/*STATE*/}
@@ -320,6 +324,9 @@ class AddStudent extends React.Component {
                           <Field
                             name="city"
                             id="city"
+                            value={values.city}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               errors.city && touched.city && "is-invalid"
                             }`}
@@ -338,6 +345,9 @@ class AddStudent extends React.Component {
                             rows="1"
                             name="address"
                             id="address"
+                            value={values.address}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               errors.address && touched.address && "is-invalid"
                             }`}
@@ -355,6 +365,9 @@ class AddStudent extends React.Component {
                             type="number"
                             name="pin"
                             id="pin"
+                            value={values.pin}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               errors.pin && touched.pin && "is-invalid"
                             }`}
@@ -366,9 +379,67 @@ class AddStudent extends React.Component {
                           ) : null}
                         </FormGroup>
                       </div>
+                      <div className="row">
+                        {/*GUARDIAN PHONE*/}
+                        <FormGroup className="col-md-6 col-sm-6">
+                          <Label for="phone">Guardian's Phone Number</Label>
+                          <Field
+                            name="guardian_phone"
+                            id="guardian_phone"
+                            className={`form-control ${
+                              errors.guardian_phone &&
+                              touched.guardian_phone &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.guardian_phone && touched.guardian_phone ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.guardian_phone}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*GUARDIAN NAME*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="first_name">Guardian's Name</Label>
+                          <Field
+                            name="guardian_name"
+                            id="guardian_name"
+                            className={`form-control ${
+                              errors.guardian_name &&
+                              touched.guardian_name &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.guardian_name && touched.guardian_name ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.guardian_name}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*GUARDIAN EMAIL*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="email">Guardian's Email</Label>
+                          <Field
+                            type="email"
+                            name="guardian_email"
+                            id="guardian_email"
+                            className={`form-control ${
+                              errors.guardian_email &&
+                              touched.guardian_email &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.guardian_email && touched.guardian_email ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.guardian_email}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                      </div>
                       <Button.Ripple color="primary" type="submit">
                         Submit
                       </Button.Ripple>
+                      <pre>{JSON.stringify(values, null, 4)}</pre>
                     </Form>
                   )}
                 </Formik>

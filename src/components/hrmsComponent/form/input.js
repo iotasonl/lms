@@ -38,6 +38,7 @@ export class CustomCheckbox extends React.Component {
 }
 export class FormikReactSelect extends React.Component {
   handleChange = (value) => {
+    console.log("hi");
     this.props.onChange(this.props.name, value);
   };
   handleBlur = () => {
