@@ -4,7 +4,15 @@ import Flatpickr from "react-flatpickr";
 
 class Datepickers extends React.Component {
   state = {
+    basicPicker: new Date(),
+    dateTimePicker: new Date(),
     humanFriendly: new Date(),
+    minMax: new Date(),
+    disabledRange: new Date(),
+    multipleDates: new Date(),
+    rangePicker: new Date(),
+    weekNum: new Date(),
+    inlinePicker: new Date(),
   };
 
   render() {

@@ -23,14 +23,14 @@ class AddTeacher extends React.Component {
   handleGuardianPhone = (e) => {
     console.log(e.target.value);
     let guardianPhoneInput = e.target.value;
-    if (guardianPhoneInput === this.guardianPhone) {
-      // const =
+    let guardianDetails;
+    if (guardianPhoneInput !== this.guardianPhone) {
+      // guardianDetails =
+    } else {
+      // guardianDetails =
     }
   };
 
-  handleChange1 = () => {
-    console.log("hi");
-  };
   render() {
     const colourOptions = [
       { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
@@ -258,22 +258,6 @@ class AddTeacher extends React.Component {
                             </div>
                           ) : null}
                         </FormGroup>
-                        {/*DOB*/}
-                        {/*<FormGroup className="col-md-3 col-sm-3">*/}
-                        {/*  <Label for="studentClass">Date of Birth</Label>*/}
-                        {/*  <Flatpickr*/}
-                        {/*    name="dob"*/}
-                        {/*    className="form-control"*/}
-                        {/*    value={new Date()}*/}
-                        {/*    options={{*/}
-                        {/*      altInput: true,*/}
-                        {/*      altFormat: "F j, Y",*/}
-                        {/*      dateFormat: "Y-m-d",*/}
-                        {/*    }}*/}
-                        {/*    onChange={handleChange}*/}
-                        {/*    onBlur={handleBlur}*/}
-                        {/*  />*/}
-                        {/*</FormGroup>*/}
                         {/*STATE*/}
                         <FormGroup className="col-md-3 col-sm-3">
                           <Label for="studentClass">State</Label>

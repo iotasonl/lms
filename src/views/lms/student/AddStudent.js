@@ -46,6 +46,18 @@ class AddStudent extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  guardianPhone = 1234;
+  handleGuardianPhone = (e) => {
+    console.log(e.target.value);
+    let guardianPhoneInput = e.target.value;
+    let guardianDetails;
+    if (guardianPhoneInput !== this.guardianPhone) {
+      // guardianDetails =
+    } else {
+      // guardianDetails =
+    }
+  };
+
   handleSubmit = (values, { setSubmitting }) => {
     const payload = {
       ...values,
@@ -279,22 +291,6 @@ class AddStudent extends React.Component {
                             </div>
                           ) : null}
                         </FormGroup>
-                        {/*DOB*/}
-                        <FormGroup className="col-md-3 col-sm-3">
-                          <Label for="studentClass">Date of Birth</Label>
-                          <Flatpickr
-                            name="dob"
-                            className="form-control"
-                            value={new Date()}
-                            options={{
-                              altInput: true,
-                              altFormat: "F j, Y",
-                              dateFormat: "Y-m-d",
-                            }}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                          />
-                        </FormGroup>
                         {/*STATE*/}
                         <FormGroup className="col-md-3 col-sm-3">
                           <Label for="studentClass">State</Label>
@@ -381,11 +377,13 @@ class AddStudent extends React.Component {
                       </div>
                       <div className="row">
                         {/*GUARDIAN PHONE*/}
-                        <FormGroup className="col-md-6 col-sm-6">
+                        <FormGroup className="col-md-3 col-sm-3">
                           <Label for="phone">Guardian's Phone Number</Label>
                           <Field
                             name="guardian_phone"
                             id="guardian_phone"
+                            value={values.guardian_phone}
+                            onKeyUp={this.handleGuardianPhone}
                             className={`form-control ${
                               errors.guardian_phone &&
                               touched.guardian_phone &&
@@ -404,6 +402,9 @@ class AddStudent extends React.Component {
                           <Field
                             name="guardian_name"
                             id="guardian_name"
+                            value={values.guardian_name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               errors.guardian_name &&
                               touched.guardian_name &&
@@ -423,6 +424,9 @@ class AddStudent extends React.Component {
                             type="email"
                             name="guardian_email"
                             id="guardian_email"
+                            value={values.guardian_email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               errors.guardian_email &&
                               touched.guardian_email &&
@@ -435,8 +439,33 @@ class AddStudent extends React.Component {
                             </div>
                           ) : null}
                         </FormGroup>
+                        {/*RELATION*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="email">Relation</Label>
+                          <Field
+                            name="relation"
+                            id="relation"
+                            value={values.relation}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={`form-control ${
+                              errors.relation &&
+                              touched.relation &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.relation && touched.relation ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.relation}
+                            </div>
+                          ) : null}
+                        </FormGroup>
                       </div>
-                      <Button.Ripple color="primary" type="submit">
+                      <Button.Ripple
+                        color="primary"
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
                         Submit
                       </Button.Ripple>
                       <pre>{JSON.stringify(values, null, 4)}</pre>

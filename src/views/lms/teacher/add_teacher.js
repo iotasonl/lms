@@ -51,7 +51,6 @@ class AddTeacher extends React.Component {
   };
 
   handleChange = (value) => {
-    console.log("hi");
     this.props.onChange(this.props.name, value);
   };
   handleBlur = () => {
