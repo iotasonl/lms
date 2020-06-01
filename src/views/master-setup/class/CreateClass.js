@@ -1,8 +1,6 @@
 import React from "react";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardBody,
   FormGroup,
   Button,
@@ -74,11 +72,8 @@ class CreateClass extends React.Component {
               onSubmit={this.handleSubmit}
             >
               {({
-                  setFieldValue,
-                  setFieldTouched,
                   errors,
-                  touched,
-                  values
+                  touched
                 }) => (
                 <Form>
                   <FormGroup row>
@@ -118,14 +113,6 @@ class CreateClass extends React.Component {
                         className="mb-1 mr-1"
                       >
                         Submit
-                      </Button.Ripple>
-                      <Button.Ripple
-                        outline
-                        color="warning"
-                        type="reset"
-                        className="mb-1"
-                      >
-                        Reset
                       </Button.Ripple>
                     </Col>
                   </FormGroup>

@@ -2,15 +2,10 @@ import React from "react"
 import {
   Card,
   CardBody,
-  CardHeader,
-  CardTitle,
-  Badge,
-  Input,
-  Button
+  Input
 } from "reactstrap"
 import DataTable from "react-data-table-component"
-import {Trash, Edit, Search, Star} from "react-feather"
-import {title} from "react-bootstrap-sweetalert/dist/styles/SweetAlertStyles";
+import {Trash, Edit, Search} from "react-feather"
 import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
 import {Link } from "react-router-dom";
 
@@ -26,9 +21,6 @@ const CustomHeader = props => {
 }
 
 class ClassList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   ClassId=5;
   state = {
     columns: [
@@ -51,7 +43,7 @@ class ClassList extends React.Component {
         name: "Action",
         selector: "",
         sortable: false,
-        cell: row => {
+        cell: () => {
           return (
             <div className="d-flex flex-column align-items-center">
               <ul className="list-inline mb-0">
@@ -136,7 +128,7 @@ class ClassList extends React.Component {
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
-            { title: "Create Class ", link: "/class-create/"+this.ClassId },
+            { title: "Create Class ", link: "/class-create/0" },
           ]}
           breadCrumbTitle="Class List"
           breadCrumbParent="Master Setup"

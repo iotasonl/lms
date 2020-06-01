@@ -81,11 +81,13 @@ class BreadCrumbs extends React.Component {
                 />
               </DropdownToggle>
               <DropdownMenu tag="ul" right>
-                <DropdownItem tag="li">
-                  <NavLink className="text-dark w-100" to="/abc">
-                    Hello
-                  </NavLink>
-                </DropdownItem>
+                { this.props.breadCrumbLinks.map(links =>
+                  <DropdownItem tag="li" key={links.title}>
+                    <NavLink className="text-dark w-100" to={links.link}>
+                      {links.title}
+                    </NavLink>
+                  </DropdownItem>
+                )}
               </DropdownMenu>
             </UncontrolledButtonDropdown>
           </div>

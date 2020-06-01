@@ -23,6 +23,7 @@ class CheckboxVuexy extends React.Component {
               defaultChecked={true}
             />
           </div>
+
           <div className="d-inline-block mr-1">
             <Checkbox
               color="primary"
