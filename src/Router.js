@@ -8,6 +8,10 @@ import knowledgeBaseCategory from "./views/pages/knowledge-base/Category";
 import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions";
 import { ContextLayout } from "./utility/context/Layout";
 
+// Master Setup
+const RoleList = lazy(() => import("./views/master-setup/role/RoleList"));
+const CreateRole = lazy(() => import("./views/master-setup/role/CreateRole"));
+
 // Route-based code splitting
 const add_teacher = lazy(() => import("./views/lms/teacher/add_teacher"));
 const studentBulkUpload = lazy(() =>
@@ -265,6 +269,9 @@ class AppRouter extends React.Component {
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
           />
+          <AppRoute path="/role/list" component={RoleList} />
+          <AppRoute path="/role/create" component={CreateRole} />
+          <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
           <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
           <AppRoute path="/syllabus/syllabusList" component={syllabusList} />
           <AppRoute
