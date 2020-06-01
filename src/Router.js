@@ -20,6 +20,7 @@ const list_teacher_dt = lazy(() =>
   import("./views/lms/teacher/list_teacher_dt")
 );
 const addSyllabus = lazy(() => import("./views/lms/syllabus/AddSyllabus"));
+const syllabusList = lazy(() => import("./views/lms/syllabus/SyllabusList"));
 
 const analyticsDashboard = lazy(() =>
   import("./views/dashboard/analytics/AnalyticsDashboard")
@@ -265,6 +266,7 @@ class AppRouter extends React.Component {
             component={ecommerceDashboard}
           />
           <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
+          <AppRoute path="/syllabus/syllabusList" component={syllabusList} />
           <AppRoute
             path="/teacher/list_teacher_dt"
             component={list_teacher_dt}
