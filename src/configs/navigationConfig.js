@@ -41,6 +41,14 @@ const navigationConfig = [
         permissions: ["admin", "editor"],
         navLink: "/syllabus/addSyllabus/0",
       },
+      {
+        id: "syllabusList",
+        title: "View Syllabus",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/syllabus/syllabusList",
+      },
     ],
   },
   {
