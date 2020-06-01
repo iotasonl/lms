@@ -126,9 +126,6 @@ class RoleList extends React.Component {
     }
   }
 
-
-  // [{ "_id": "5ec4ff57010068f4765f41ce" , "role_name": "Admin", "status": true, "c_date": 1589988526809, "d_date": 1589988526809 }]
-
   render() {
     let { roleData, value, filteredData } = this.state
     return (
@@ -161,10 +158,7 @@ class RoleList extends React.Component {
   }
 }
 
-// export default RoleList
-
 const mapStateToProps = state => {
-  // console.log("state", state.roleApp.role)
   return {
     app: state.roleApp.role
   }
