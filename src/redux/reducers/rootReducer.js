@@ -8,12 +8,14 @@ import auth from "./auth/"
 import navbar from "./navbar/Index"
 import dataList from "./data-list/"
 import roleReducer from "./role/"
+import subjectReducer from "./subject/"
 
 const rootReducer = combineReducers({
   calendar: calenderReducer,
   emailApp: emailReducer,
   todoApp: todoReducer,
   roleApp: roleReducer,
+  subjectApp: subjectReducer,
   chatApp: chatReducer,
   customizer: customizer,
   auth: auth,

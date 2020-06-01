@@ -12,6 +12,9 @@ import { ContextLayout } from "./utility/context/Layout";
 const RoleList = lazy(() => import("./views/master-setup/role/RoleList"));
 const CreateRole = lazy(() => import("./views/master-setup/role/CreateRole"));
 
+const SubjectList = lazy(() => import("./views/master-setup/subject/SubjectList"));
+const CreateSubject = lazy(() => import("./views/master-setup/subject/CreateSubject"));
+
 // Route-based code splitting
 const add_teacher = lazy(() => import("./views/lms/teacher/add_teacher"));
 const studentBulkUpload = lazy(() =>
@@ -270,7 +273,9 @@ class AppRouter extends React.Component {
             component={ecommerceDashboard}
           />
           <AppRoute path="/role/list" component={RoleList} />
-          <AppRoute path="/role/create" component={CreateRole} />
+          <AppRoute path="/role/create/:roleId" component={CreateRole} />
+          <AppRoute path="/subject/list" component={SubjectList} />
+          <AppRoute path="/subject/create/:roleId" component={CreateSubject} />
           <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
           <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
           <AppRoute path="/syllabus/syllabusList" component={syllabusList} />
