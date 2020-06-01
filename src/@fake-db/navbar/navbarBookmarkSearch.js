@@ -1,4 +1,4 @@
-import mock from "../mock"
+import mock from "../mock";
 
 export const searchResult = [
   {
@@ -7,7 +7,7 @@ export const searchResult = [
     title: "Analytics Dashboard",
     link: "/",
     icon: "Home",
-    starred: false
+    starred: true,
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const searchResult = [
     title: "eCommerce Dashboard",
     link: "/ecommerce-dashboard",
     icon: "Home",
-    starred: false
+    starred: false,
   },
   {
     id: 3,
@@ -23,7 +23,7 @@ export const searchResult = [
     title: "Todo",
     link: "/todo/all",
     icon: "CheckSquare",
-    starred: true
+    starred: false,
   },
   {
     id: 4,
@@ -31,7 +31,7 @@ export const searchResult = [
     title: "Chat",
     link: "/chat",
     icon: "MessageSquare",
-    starred: true
+    starred: false,
   },
   {
     id: 5,
@@ -39,7 +39,7 @@ export const searchResult = [
     title: "Email",
     link: "/email/inbox",
     icon: "Mail",
-    starred: true
+    starred: false,
   },
   {
     id: 6,
@@ -47,7 +47,7 @@ export const searchResult = [
     title: "Calender",
     link: "/calendar",
     icon: "Calendar",
-    starred: true
+    starred: false,
   },
   {
     id: 7,
@@ -55,7 +55,7 @@ export const searchResult = [
     title: "E-commerce Shop",
     link: "/ecommerce/shop",
     icon: "ShoppingCart",
-    starred: false
+    starred: false,
   },
   {
     id: 8,
@@ -63,7 +63,7 @@ export const searchResult = [
     title: "E-commerce Wish List",
     link: "/ecommerce/wishlist",
     icon: "Heart",
-    starred: false
+    starred: false,
   },
   {
     id: 9,
@@ -71,7 +71,7 @@ export const searchResult = [
     title: "E-commerce Checkout",
     link: "/ecommerce/checkout",
     icon: "CreditCard",
-    starred: false
+    starred: false,
   },
   {
     id: 12,
@@ -79,7 +79,7 @@ export const searchResult = [
     title: "Content - Grid",
     link: "/ui-element/grid",
     icon: "Grid",
-    starred: false
+    starred: false,
   },
   {
     id: 13,
@@ -87,7 +87,7 @@ export const searchResult = [
     title: "Content - Typography",
     link: "/ui-element/typography",
     icon: "Type",
-    starred: false
+    starred: false,
   },
   {
     id: 14,
@@ -95,7 +95,7 @@ export const searchResult = [
     title: "Content - Text Utilities",
     link: "/ui-element/textutilities",
     icon: "Type",
-    starred: false
+    starred: false,
   },
   {
     id: 15,
@@ -103,7 +103,7 @@ export const searchResult = [
     title: "Content - Syntax Highlighter",
     link: "/ui-element/syntaxhighlighter",
     icon: "Code",
-    starred: false
+    starred: false,
   },
   {
     id: 16,
@@ -111,7 +111,7 @@ export const searchResult = [
     title: "Colors",
     link: "/colors/colors",
     icon: "Droplet",
-    starred: false
+    starred: false,
   },
   {
     id: 17,
@@ -119,7 +119,7 @@ export const searchResult = [
     title: "Icons",
     link: "/icons/reactfeather",
     icon: "Feather",
-    starred: false
+    starred: false,
   },
   {
     id: 18,
@@ -127,7 +127,7 @@ export const searchResult = [
     title: "Cards Basic",
     link: "/cards/basic",
     icon: "Square",
-    starred: false
+    starred: false,
   },
   {
     id: 19,
@@ -135,7 +135,7 @@ export const searchResult = [
     title: "Cards Statistics",
     link: "/cards/statistics",
     icon: "Smartphone",
-    starred: false
+    starred: false,
   },
   {
     id: 20,
@@ -143,7 +143,7 @@ export const searchResult = [
     title: "Cards Analytics",
     link: "/cards/analytics",
     icon: "BarChart2",
-    starred: false
+    starred: false,
   },
   {
     id: 21,
@@ -151,7 +151,7 @@ export const searchResult = [
     title: "Cards Actions",
     link: "/cards/action",
     icon: "Airplay",
-    starred: false
+    starred: false,
   },
   {
     id: 22,
@@ -159,7 +159,7 @@ export const searchResult = [
     title: "Reactstrap Tables",
     link: "/tables/reactstrap",
     icon: "Server",
-    starred: false
+    starred: false,
   },
   {
     id: 23,
@@ -167,7 +167,7 @@ export const searchResult = [
     title: "React Tables",
     link: "/tables/react-tables",
     icon: "Server",
-    starred: false
+    starred: false,
   },
   {
     id: 24,
@@ -175,7 +175,7 @@ export const searchResult = [
     title: "agGrid Tables",
     link: "/tables/agGrid",
     icon: "Grid",
-    starred: false
+    starred: false,
   },
   {
     id: 25,
@@ -183,7 +183,7 @@ export const searchResult = [
     title: "Alert Component",
     link: "/components/alerts",
     icon: "Info",
-    starred: false
+    starred: false,
   },
   {
     id: 26,
@@ -191,7 +191,7 @@ export const searchResult = [
     title: "Button Component",
     link: "/components/buttons",
     icon: "Inbox",
-    starred: false
+    starred: false,
   },
   {
     id: 27,
@@ -199,7 +199,7 @@ export const searchResult = [
     title: "Breadcrumb Component",
     link: "/components/breadcrumbs",
     icon: "MoreHorizontal",
-    starred: false
+    starred: false,
   },
   {
     id: 28,
@@ -207,7 +207,7 @@ export const searchResult = [
     title: "Carousel Component",
     link: "/components/carousel",
     icon: "Map",
-    starred: false
+    starred: false,
   },
   {
     id: 29,
@@ -215,7 +215,7 @@ export const searchResult = [
     title: "Collapse Component",
     link: "/components/collapse",
     icon: "Minimize",
-    starred: false
+    starred: false,
   },
   {
     id: 30,
@@ -223,7 +223,7 @@ export const searchResult = [
     title: "Dropdowns Component",
     link: "/components/dropdowns",
     icon: "Inbox",
-    starred: false
+    starred: false,
   },
   {
     id: 31,
@@ -231,7 +231,7 @@ export const searchResult = [
     title: "List Group Component",
     link: "/components/list-group",
     icon: "Layers",
-    starred: false
+    starred: false,
   },
   {
     id: 32,
@@ -239,7 +239,7 @@ export const searchResult = [
     title: "Modal Component",
     link: "/components/modals",
     icon: "Maximize2",
-    starred: false
+    starred: false,
   },
   {
     id: 33,
@@ -247,7 +247,7 @@ export const searchResult = [
     title: "Pagination Component",
     link: "/components/pagination",
     icon: "ChevronsRight",
-    starred: false
+    starred: false,
   },
   {
     id: 34,
@@ -255,7 +255,7 @@ export const searchResult = [
     title: "Navs Component",
     link: "/components/nav-component",
     icon: "MoreVertical",
-    starred: false
+    starred: false,
   },
   {
     id: 35,
@@ -263,7 +263,7 @@ export const searchResult = [
     title: "Navbar Component",
     link: "/components/navbar",
     icon: "MoreHorizontal",
-    starred: false
+    starred: false,
   },
   {
     id: 36,
@@ -271,7 +271,7 @@ export const searchResult = [
     title: "Tabs Component",
     link: "/components/tabs-component",
     icon: "CreditCard",
-    starred: false
+    starred: false,
   },
   {
     id: 37,
@@ -279,7 +279,7 @@ export const searchResult = [
     title: "Pills Component",
     link: "/components/pills-component",
     icon: "ToggleRight",
-    starred: false
+    starred: false,
   },
   {
     id: 38,
@@ -287,7 +287,7 @@ export const searchResult = [
     title: "Tooltip Component",
     link: "/components/tooltips",
     icon: "MessageCircle",
-    starred: false
+    starred: false,
   },
   {
     id: 39,
@@ -295,7 +295,7 @@ export const searchResult = [
     title: "Popover Component",
     link: "/components/popovers",
     icon: "MessageCircle",
-    starred: false
+    starred: false,
   },
   {
     id: 40,
@@ -303,7 +303,7 @@ export const searchResult = [
     title: "Badge Component",
     link: "/components/badges",
     icon: "Circle",
-    starred: false
+    starred: false,
   },
   {
     id: 41,
@@ -311,7 +311,7 @@ export const searchResult = [
     title: "Pill Badge Component",
     link: "/components/pill-badges",
     icon: "Circle",
-    starred: false
+    starred: false,
   },
   {
     id: 42,
@@ -319,7 +319,7 @@ export const searchResult = [
     title: "Progress Component",
     link: "/components/progress",
     icon: "Server",
-    starred: false
+    starred: false,
   },
   {
     id: 43,
@@ -327,7 +327,7 @@ export const searchResult = [
     title: "Media Objects",
     link: "/components/media-objects",
     icon: "Image",
-    starred: false
+    starred: false,
   },
   {
     id: 44,
@@ -335,7 +335,7 @@ export const searchResult = [
     title: "Spinner Component",
     link: "/components/spinners",
     icon: "Sun",
-    starred: false
+    starred: false,
   },
   {
     id: 45,
@@ -343,7 +343,7 @@ export const searchResult = [
     title: "Toasts Component",
     link: "/components/toasts",
     icon: "Triangle",
-    starred: false
+    starred: false,
   },
   {
     id: 46,
@@ -351,7 +351,7 @@ export const searchResult = [
     title: "Avatar",
     link: "/extra-components/avatar",
     icon: "User",
-    starred: false
+    starred: false,
   },
   {
     id: 47,
@@ -359,7 +359,7 @@ export const searchResult = [
     title: "Chips",
     link: "/extra-components/chips",
     icon: "Octagon",
-    starred: false
+    starred: false,
   },
   {
     id: 48,
@@ -367,7 +367,7 @@ export const searchResult = [
     title: "Divider",
     link: "/extra-components/divider",
     icon: "Minus",
-    starred: false
+    starred: false,
   },
   {
     id: 49,
@@ -375,7 +375,7 @@ export const searchResult = [
     title: "Select Form Element",
     link: "/forms/elements/select",
     icon: "Server",
-    starred: false
+    starred: false,
   },
   {
     id: 50,
@@ -383,7 +383,7 @@ export const searchResult = [
     title: "Switch Form Element",
     link: "/forms/elements/switch",
     icon: "ToggleLeft",
-    starred: false
+    starred: false,
   },
   {
     id: 51,
@@ -391,7 +391,7 @@ export const searchResult = [
     title: "Checkbox Form Element",
     link: "/forms/elements/checkbox",
     icon: "CheckSquare",
-    starred: false
+    starred: false,
   },
   {
     id: 52,
@@ -399,7 +399,7 @@ export const searchResult = [
     title: "Radio Form Element",
     link: "/forms/elements/radio",
     icon: "StopCircle",
-    starred: false
+    starred: false,
   },
   {
     id: 53,
@@ -407,7 +407,7 @@ export const searchResult = [
     title: "Input Form Element",
     link: "/forms/elements/input",
     icon: "Server",
-    starred: false
+    starred: false,
   },
   {
     id: 54,
@@ -415,7 +415,7 @@ export const searchResult = [
     title: "Input Groups Form Elements",
     link: "/forms/elements/input-group",
     icon: "Package",
-    starred: false
+    starred: false,
   },
   {
     id: 55,
@@ -423,7 +423,7 @@ export const searchResult = [
     title: "Number Input Form Elements",
     link: "/forms/elements/number-input",
     icon: "Plus",
-    starred: false
+    starred: false,
   },
   {
     id: 56,
@@ -431,7 +431,7 @@ export const searchResult = [
     title: "Textarea Form Elements",
     link: "/forms/elements/textarea",
     icon: "Edit2",
-    starred: false
+    starred: false,
   },
   {
     id: 57,
@@ -439,7 +439,7 @@ export const searchResult = [
     title: "Date & Time Picker Form Elements",
     link: "/forms/elements/pickers",
     icon: "Calendar",
-    starred: false
+    starred: false,
   },
   {
     id: 58,
@@ -447,7 +447,7 @@ export const searchResult = [
     title: "Input Mask Form Elements",
     link: "/forms/elements/input-mask",
     icon: "Smile",
-    starred: false
+    starred: false,
   },
   {
     id: 59,
@@ -455,7 +455,7 @@ export const searchResult = [
     title: "Form Layout",
     link: "/forms/layout/form-layout",
     icon: "Layout",
-    starred: false
+    starred: false,
   },
   {
     id: 60,
@@ -463,7 +463,7 @@ export const searchResult = [
     title: "Form Wizard",
     link: "/forms/wizard",
     icon: "Sliders",
-    starred: false
+    starred: false,
   },
   {
     id: 61,
@@ -471,7 +471,7 @@ export const searchResult = [
     title: "Formik",
     link: "/forms/formik",
     icon: "FileText",
-    starred: false
+    starred: false,
   },
   {
     id: 62,
@@ -479,7 +479,7 @@ export const searchResult = [
     title: "Login",
     link: "/pages/login",
     icon: "LogIn",
-    starred: false
+    starred: false,
   },
   {
     id: 63,
@@ -487,7 +487,7 @@ export const searchResult = [
     title: "Register",
     link: "/pages/register",
     icon: "UserPlus",
-    starred: false
+    starred: false,
   },
   {
     id: 64,
@@ -495,7 +495,7 @@ export const searchResult = [
     title: "Forgot Password",
     link: "/pages/forgot-password",
     icon: "Crosshair",
-    starred: false
+    starred: false,
   },
   {
     id: 65,
@@ -503,7 +503,7 @@ export const searchResult = [
     title: "Reset Password",
     link: "/pages/reset-password",
     icon: "TrendingUp",
-    starred: false
+    starred: false,
   },
   {
     id: 67,
@@ -511,7 +511,7 @@ export const searchResult = [
     title: "Lock Screen",
     link: "/pages/lock-screen",
     icon: "Lock",
-    starred: false
+    starred: false,
   },
   {
     id: 68,
@@ -519,7 +519,7 @@ export const searchResult = [
     title: "Coming Soon",
     link: "/misc/coming-soon",
     icon: "Watch",
-    starred: false
+    starred: false,
   },
   {
     id: 69,
@@ -527,7 +527,7 @@ export const searchResult = [
     title: "404 Page",
     link: "/misc/error/404",
     icon: "AlertTriangle",
-    starred: false
+    starred: false,
   },
   {
     id: 70,
@@ -535,7 +535,7 @@ export const searchResult = [
     title: "500 Page",
     link: "/misc/error/500",
     icon: "AlertOctagon",
-    starred: false
+    starred: false,
   },
   {
     id: 71,
@@ -543,7 +543,7 @@ export const searchResult = [
     title: "Not Authorized",
     link: "/misc/not-authorized",
     icon: "UserX",
-    starred: false
+    starred: false,
   },
   {
     id: 72,
@@ -551,7 +551,7 @@ export const searchResult = [
     title: "Maintenance",
     link: "/misc/maintenance",
     icon: "Aperture",
-    starred: false
+    starred: false,
   },
   {
     id: 73,
@@ -559,7 +559,7 @@ export const searchResult = [
     title: "Profile",
     link: "/pages/profile",
     icon: "Users",
-    starred: false
+    starred: false,
   },
   {
     id: 74,
@@ -567,7 +567,7 @@ export const searchResult = [
     title: "FAQ",
     link: "/pages/faq",
     icon: "Zap",
-    starred: false
+    starred: false,
   },
   {
     id: 75,
@@ -575,7 +575,7 @@ export const searchResult = [
     title: "Knowledge Base",
     link: "/pages/knowledge-base",
     icon: "AlignLeft",
-    starred: false
+    starred: false,
   },
   {
     id: 76,
@@ -583,7 +583,7 @@ export const searchResult = [
     title: "Search",
     link: "/pages/search",
     icon: "Search",
-    starred: false
+    starred: false,
   },
   {
     id: 77,
@@ -591,7 +591,7 @@ export const searchResult = [
     title: "Invoice",
     link: "/pages/invoice",
     icon: "FileText",
-    starred: false
+    starred: false,
   },
   {
     id: 78,
@@ -599,7 +599,7 @@ export const searchResult = [
     title: "Apex Charts",
     link: "/charts/apex",
     icon: "BarChart",
-    starred: false
+    starred: false,
   },
   {
     id: 79,
@@ -607,7 +607,7 @@ export const searchResult = [
     title: "Chartjs",
     link: "/charts/chartjs",
     icon: "Activity",
-    starred: false
+    starred: false,
   },
   {
     id: 80,
@@ -615,7 +615,7 @@ export const searchResult = [
     title: "Recharts",
     link: "/charts/recharts",
     icon: "PieChart",
-    starred: false
+    starred: false,
   },
   {
     id: 81,
@@ -623,7 +623,7 @@ export const searchResult = [
     title: "Leaflet Maps",
     link: "/maps/leaflet",
     icon: "MapPin",
-    starred: false
+    starred: false,
   },
   {
     id: 82,
@@ -631,7 +631,7 @@ export const searchResult = [
     title: "Toastr",
     link: "/extensions/toastr",
     icon: "CreditCard",
-    starred: false
+    starred: false,
   },
   {
     id: 83,
@@ -639,7 +639,7 @@ export const searchResult = [
     title: "Rc Slider",
     link: "/extensions/slider",
     icon: "Sliders",
-    starred: false
+    starred: false,
   },
   {
     id: 84,
@@ -647,7 +647,7 @@ export const searchResult = [
     title: "File Uploader",
     link: "/extensions/file-uploader",
     icon: "Upload",
-    starred: false
+    starred: false,
   },
   {
     id: 85,
@@ -655,7 +655,7 @@ export const searchResult = [
     title: "Wysiwyg Editor",
     link: "/extensions/wysiwyg-editor",
     icon: "Edit",
-    starred: false
+    starred: false,
   },
   {
     id: 86,
@@ -663,7 +663,7 @@ export const searchResult = [
     title: "Drag & Drop",
     link: "/extensions/drag-and-drop",
     icon: "Move",
-    starred: false
+    starred: false,
   },
   {
     id: 87,
@@ -671,7 +671,7 @@ export const searchResult = [
     title: "Tour",
     link: "/extensions/tour",
     icon: "Airplay",
-    starred: false
+    starred: false,
   },
   {
     id: 88,
@@ -679,7 +679,7 @@ export const searchResult = [
     title: "Auto Complete",
     link: "/extra-components/auto-complete",
     icon: "Edit",
-    starred: false
+    starred: false,
   },
   {
     id: 89,
@@ -687,7 +687,7 @@ export const searchResult = [
     title: "Clipboard",
     link: "/extensions/clipboard",
     icon: "Clipboard",
-    starred: false
+    starred: false,
   },
   {
     id: 90,
@@ -695,7 +695,7 @@ export const searchResult = [
     title: "Context Menu",
     link: "/extensions/context-menu",
     icon: "Menu",
-    starred: false
+    starred: false,
   },
   {
     id: 91,
@@ -703,7 +703,7 @@ export const searchResult = [
     title: "Internationalization",
     link: "/extensions/i18n",
     icon: "Globe",
-    starred: false
+    starred: false,
   },
   {
     id: 92,
@@ -711,7 +711,7 @@ export const searchResult = [
     title: "Account Settings",
     link: "/pages/account-settings",
     icon: "Settings",
-    starred: false
+    starred: false,
   },
   {
     id: 93,
@@ -719,7 +719,7 @@ export const searchResult = [
     title: "User List",
     link: "/pages/user/list",
     icon: "List",
-    starred: false
+    starred: false,
   },
   {
     id: 94,
@@ -727,7 +727,7 @@ export const searchResult = [
     title: "User View",
     link: "/pages/user/view",
     icon: "Eye",
-    starred: false
+    starred: false,
   },
   {
     id: 95,
@@ -735,7 +735,7 @@ export const searchResult = [
     title: "User Edit",
     link: "/app/user/edit",
     icon: "Edit",
-    starred: false
+    starred: false,
   },
   {
     id: 96,
@@ -743,7 +743,7 @@ export const searchResult = [
     title: "Swiper",
     link: "/extensions/swiper",
     icon: "Map",
-    starred: false
+    starred: false,
   },
   {
     id: 97,
@@ -751,7 +751,7 @@ export const searchResult = [
     title: "Access Control",
     link: "/extensions/access-control",
     icon: "Lock",
-    starred: false
+    starred: false,
   },
   {
     id: 98,
@@ -759,7 +759,7 @@ export const searchResult = [
     title: "Tree",
     link: "/extensions/tree",
     icon: "GitMerge",
-    starred: false
+    starred: false,
   },
   {
     id: 99,
@@ -767,7 +767,7 @@ export const searchResult = [
     title: "Pagination Extension",
     link: "/extensions/pagination",
     icon: "ChevronsRight",
-    starred: false
+    starred: false,
   },
   {
     id: 100,
@@ -775,7 +775,7 @@ export const searchResult = [
     title: "Export",
     link: "/extensions/export",
     icon: "UploadCloud",
-    starred: false
+    starred: false,
   },
   {
     id: 101,
@@ -783,7 +783,7 @@ export const searchResult = [
     title: "Import",
     link: "/extensions/import",
     icon: "DownloadCloud",
-    starred: false
+    starred: false,
   },
   {
     id: 102,
@@ -791,7 +791,7 @@ export const searchResult = [
     title: "Export Selected",
     link: "/extensions/export-selected",
     icon: "CheckSquare",
-    starred: false
+    starred: false,
   },
   {
     id: 103,
@@ -799,7 +799,7 @@ export const searchResult = [
     title: "List View",
     link: "/data-list/list-view",
     icon: "List",
-    starred: false
+    starred: false,
   },
   {
     id: 104,
@@ -807,7 +807,7 @@ export const searchResult = [
     title: "Thumb View",
     link: "/data-list/thumb-view",
     icon: "Image",
-    starred: false
+    starred: false,
   },
   {
     id: 105,
@@ -815,23 +815,23 @@ export const searchResult = [
     title: "DataTable",
     link: "/tables/data-tables",
     icon: "Grid",
-    starred: false
-  }
-]
+    starred: false,
+  },
+];
 
 mock.onGet("/api/search/bookmarks/data").reply(200, {
-  searchResult
-})
+  searchResult,
+});
 
-mock.onPost("/api/update/bookmarks").reply(request => {
-  const bookmarkToUpdate = JSON.parse(request.data).obj
+mock.onPost("/api/update/bookmarks").reply((request) => {
+  const bookmarkToUpdate = JSON.parse(request.data).obj;
 
-  searchResult.filter(i => {
+  searchResult.filter((i) => {
     if (i.id === bookmarkToUpdate.id) {
-      return (i.starred = !bookmarkToUpdate.starred)
+      return (i.starred = !bookmarkToUpdate.starred);
     } else {
-      return null
+      return null;
     }
-  })
-  return [200]
-})
+  });
+  return [200];
+});

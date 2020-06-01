@@ -92,7 +92,7 @@ const ThemeNavbar = props => {
                   props.user.login.values !== undefined &&
                   props.user.login.values.loggedInWith !== "jwt" &&
                   props.user.login.values.photoUrl
-                    ? props.user.login.values.photoUrl 
+                    ? props.user.login.values.photoUrl
                     : user !== undefined && user.picture ? user.picture
                     : userImg
                 }
