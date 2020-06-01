@@ -54,6 +54,7 @@ class RoleList extends React.Component {
       data: [],
       value: "",
       filteredData: [],
+      
       roleData: [],
     }
   }
