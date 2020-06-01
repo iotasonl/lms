@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, CardBody, Col, FormGroup, Label, Row , Center} from "reactstrap";
+import {Button, Card, CardBody, Col, FormGroup, Label, Row } from "reactstrap";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
@@ -707,7 +707,7 @@ class AddStudent extends React.Component {
                               </FormGroup>
                             </React.Fragment>
                             : this.state.show === true ?
-                              <Center style={{padding:'0px 20px'}} className="col-12">
+                              <div style={{padding:'0px 20px'}} className="col-12">
                                 <Col
                                   style={{
                                     marginBottom: '10px',
@@ -743,7 +743,7 @@ class AddStudent extends React.Component {
                                     </CardBody>
                                   </Card>
                                 </Col>
-                              </Center>
+                              </div>
                               : null
                         }
                       </div>
