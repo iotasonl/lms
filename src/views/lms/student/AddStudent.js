@@ -1,24 +1,51 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  CardBody,
-  Col,
-  FormGroup,
-  Label,
-  Row,
-  Input,
-} from "reactstrap";
-import Select from "react-select";
+import { Button, Card, CardBody, Col, FormGroup, Label, Row } from "reactstrap";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
-import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import "react-toastify/dist/ReactToastify.css";
 import {
   FormikReactSelect,
   RadioInput,
-} from "../../../../components/hrmsComponent/form/input";
+} from "../../../components/hrmsComponent/form/input";
+import Flatpickr from "react-flatpickr";
 
-class AddTeacher extends React.Component {
+const formSchema = Yup.object().shape({
+  first_name: Yup.string().required("First Name is required"),
+  last_name: Yup.string().required("Last Name is required"),
+  username: Yup.string().required("Username is required").min("4", "Too Short"),
+  phone: Yup.number()
+    .required("Teacher's name is required")
+    .min(4, "Too Short"),
+  email: Yup.string().email("Invalid email").required("Required"),
+  studentClass: Yup.object()
+    .shape({
+      label: Yup.string().required(),
+      value: Yup.string().required(),
+    })
+    .nullable()
+    .required("Class is required!"),
+  gender: Yup.string().required("A radio option is required"),
+  state: Yup.object()
+    .shape({
+      label: Yup.string().required(),
+      value: Yup.string().required(),
+    })
+    .nullable()
+    .required("State is required!"),
+  address: Yup.string().required("Address is required"),
+  pin: Yup.string()
+    .required("Pin Code is required")
+    .min("6", "Enter a valid Pin Code")
+    .max("6", "Enter a valid Pin Code"),
+});
+
+class AddStudent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   guardianPhone = 1234;
   handleGuardianPhone = (e) => {
     console.log(e.target.value);
@@ -31,16 +58,27 @@ class AddTeacher extends React.Component {
     }
   };
 
-  render() {
-    const colourOptions = [
-      { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-      { value: "blue", label: "Blue", color: "#0052CC", isFixed: true },
-      { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
-      { value: "red", label: "Red", color: "#FF5630", isFixed: false },
-      { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
-      { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false },
-    ];
+  handleSubmit = (values, { setSubmitting }) => {
+    const payload = {
+      ...values,
+      gender: values.gender.value,
+    };
+    setTimeout(() => {
+      console.log(JSON.stringify(payload, null, 2));
+      setSubmitting(false);
+    }, 1000);
+  };
 
+  handleChange = (value) => {
+    this.props.onChange(this.props.name, value);
+    console.log(value.target.value);
+  };
+  handleBlur = () => {
+    this.props.onBlur(this.props.name, true);
+  };
+
+  parentPhone = 9876543210;
+  render() {
     return (
       <React.Fragment>
         <Breadcrumbs
@@ -62,7 +100,7 @@ class AddTeacher extends React.Component {
                     username: "",
                     email: "",
                     phone: "",
-                    class: null,
+                    studentClass: null,
                     gender: "",
                     dob: "",
                     address: "",
@@ -74,24 +112,19 @@ class AddTeacher extends React.Component {
                     guardian_name: "",
                     guardian_phone: "",
                     guardian_email: "",
-                    relation: "",
                   }}
-                  onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                      alert(JSON.stringify(values, null, 2));
-                      setSubmitting(false);
-                    }, 400);
-                  }}
+                  validationSchema={formSchema}
+                  onSubmit={this.handleSubmit}
                 >
                   {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
                     handleSubmit,
                     setFieldValue,
                     setFieldTouched,
+                    handleChange,
+                    handleBlur,
+                    values,
+                    errors,
+                    touched,
                     isSubmitting,
                   }) => (
                     <Form>
@@ -447,5 +480,4 @@ class AddTeacher extends React.Component {
     );
   }
 }
-
-export default AddTeacher;
+export default AddStudent;

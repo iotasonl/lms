@@ -17,10 +17,13 @@ const add_teacher = lazy(() => import("./views/lms/teacher/add_teacher"));
 const studentBulkUpload = lazy(() =>
   import("./views/lms/student/StudentBulkUpload")
 );
+const AddStudent = lazy(() => import("./views/lms/student/AddStudent"));
 const studentList = lazy(() => import("./views/lms/student/StudentList"));
 const list_teacher = lazy(() => import("./views/lms/teacher/list_teacher"));
-const list_teacher_dt = lazy(() => import("./views/lms/teacher/list_teacher_dt"));
-
+const list_teacher_dt = lazy(() =>
+  import("./views/lms/teacher/list_teacher_dt")
+);
+const addSyllabus = lazy(() => import("./views/lms/syllabus/AddSyllabus"));
 
 const analyticsDashboard = lazy(() =>
   import("./views/dashboard/analytics/AnalyticsDashboard")
@@ -268,13 +271,22 @@ class AppRouter extends React.Component {
           <AppRoute path="/role/list" component={RoleList} />
           <AppRoute path="/role/create" component={CreateRole} />
           <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
+          <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
+          <AppRoute
+            path="/teacher/list_teacher_dt"
+            component={list_teacher_dt}
+          />
           <AppRoute path="/teacher/list_teacher" component={list_teacher} />
-          <AppRoute path="/teacher/add_teacher" component={add_teacher} />
+          <AppRoute
+            path="/teacher/add_teacher/:user_id"
+            component={add_teacher}
+          />
           <AppRoute path="/teacher/add-teacher" component={AddTeacher} />
           <AppRoute
             path="/student/student-bulk-upload"
             component={studentBulkUpload}
           />
+          <AppRoute path="/student/add-student" component={AddStudent} />
           <AppRoute path="/student/student-list" component={studentList} />
           <AppRoute
             path="/email"

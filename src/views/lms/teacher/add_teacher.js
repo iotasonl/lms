@@ -48,10 +48,10 @@ const formSchema = Yup.object().shape({
 });
 
 class AddTeacher extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
     handleSubmit = (values) => {
         console.log("value", values)
@@ -125,37 +125,73 @@ class AddTeacher extends React.Component {
                                                         ) : null}
                                                     </FormGroup>
 
-                                                    <FormGroup className="col-md-3 col-sm-3">
-                                                        <Label for="last_name">Last Name</Label>
-                                                        <Field name="last_name" id="last_name" className={`form-control ${errors.last_name && touched.last_name && "is-invalid"}`} />
-                                                        {errors.last_name && touched.last_name ? (
-                                                            <div className="invalid-tooltip mt-25">{errors.last_name}</div>
-                                                        ) : null}
-                                                    </FormGroup>
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="last_name">Last Name</Label>
+                          <Field
+                            name="last_name"
+                            id="last_name"
+                            className={`form-control ${
+                              errors.last_name &&
+                              touched.last_name &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.last_name && touched.last_name ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.last_name}
+                            </div>
+                          ) : null}
+                        </FormGroup>
 
-                                                    <FormGroup className="col-md-3 col-sm-3">
-                                                        <Label for="father_name">Father Name</Label>
-                                                        <Field name="father_name" id="father_name" className={`form-control ${errors.father_name && touched.father_name && "is-invalid"}`} />
-                                                        {errors.father_name && touched.father_name ? (
-                                                            <div className="invalid-tooltip mt-25">{errors.father_name}</div>
-                                                        ) : null}
-                                                    </FormGroup>
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="father_name">Father Name</Label>
+                          <Field
+                            name="father_name"
+                            id="father_name"
+                            className={`form-control ${
+                              errors.father_name &&
+                              touched.father_name &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.father_name && touched.father_name ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.father_name}
+                            </div>
+                          ) : null}
+                        </FormGroup>
 
-                                                    <FormGroup className="col-md-3 col-sm-3">
-                                                        <Label for="email">Email ID</Label>
-                                                        <Field name="email" id="email" className={`form-control ${errors.email && touched.email && "is-invalid"}`} />
-                                                        {errors.email && touched.email ? (
-                                                            <div className="invalid-tooltip mt-25">{errors.email}</div>
-                                                        ) : null}
-                                                    </FormGroup>
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="email">Email ID</Label>
+                          <Field
+                            name="email"
+                            id="email"
+                            className={`form-control ${
+                              errors.email && touched.email && "is-invalid"
+                            }`}
+                          />
+                          {errors.email && touched.email ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.email}
+                            </div>
+                          ) : null}
+                        </FormGroup>
 
-                                                    <FormGroup className="col-md-3 col-sm-3">
-                                                        <Label for="phone">Phone Number</Label>
-                                                        <Field name="phone" id="phone" className={`form-control ${errors.phone && touched.phone && "is-invalid"}`} />
-                                                        {errors.phone && touched.phone ? (
-                                                            <div className="invalid-tooltip mt-25">{errors.phone}</div>
-                                                        ) : null}
-                                                    </FormGroup>
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="phone">Phone Number</Label>
+                          <Field
+                            name="phone"
+                            id="phone"
+                            className={`form-control ${
+                              errors.phone && touched.phone && "is-invalid"
+                            }`}
+                          />
+                          {errors.phone && touched.phone ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.phone}
+                            </div>
+                          ) : null}
+                        </FormGroup>
 
                                                     <FormGroup className="col-md-3 col-sm-3">
                                                         <Label for="gender">Gender</Label>

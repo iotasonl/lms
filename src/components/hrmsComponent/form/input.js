@@ -4,11 +4,41 @@ import * as Icon from "react-feather";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import Radio from "../../@vuexy/radio/RadioVuexy";
+import "../../../assets/scss/customCheckbox.scss";
 
 const animatedComponents = makeAnimated();
 
+export class CustomCheckbox extends React.Component {
+  handleChange = (value) => {
+    this.props.onChange(this.props.name, value);
+  };
+  handleBlur = () => {
+    this.props.onBlur(this.props.name, true);
+  };
+  render() {
+    return (
+      <div className="d-inline-block mr-1 mb-1">
+        <div className="mb-2">
+          <input
+            type="checkbox"
+            name={this.props.name}
+            id={this.props.id}
+            onChange={this.handleChange}
+            onBlur={this.handleBlur}
+            value={this.props.value}
+            className={`${this.props.className}`}
+          />
+          <label htmlFor={this.props.id} id="label" style={this.props.styles}>
+            {this.props.title}
+          </label>
+        </div>
+      </div>
+    );
+  }
+}
 export class FormikReactSelect extends React.Component {
-  handleChange = value => {
+  handleChange = (value) => {
+    console.log("hi");
     this.props.onChange(this.props.name, value);
   };
   handleBlur = () => {
@@ -134,13 +164,21 @@ export const MultiSelect = (props) => {
 };
 
 export const RadioInput = (props) => {
+  const handleChange = (value) => {
+    props.onChange(props.name, value);
+  };
+  const handleBlur = () => {
+    props.onBlur(props.name, true);
+  };
   return (
     <div className={props.className}>
       <Radio
         label={props.label}
         defaultChecked={props.defaultChecked}
         name={props.name}
-        value={props.gender}
+        value={props.value}
+        onChange={handleChange}
+        onBlur={handleBlur}
       />
     </div>
   );
