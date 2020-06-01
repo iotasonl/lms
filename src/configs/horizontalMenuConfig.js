@@ -27,6 +27,102 @@ const horizontalMenuConfig = [
     ]
   },
   {
+    id: "student",
+    title: "Student",
+    type: "dropdown",
+    icon: <Icon.UserCheck size={16} />,
+    children: [
+      {
+        id: "student_add",
+        title: "Add Student",
+        type: "item",
+        icon: <Icon.UserPlus size={15} />,
+        navLink: "/student/add-student/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "student_list",
+        title: "Student List",
+        type: "item",
+        icon: <Icon.Users size={15} />,
+        navLink: "/student/student-list",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "student_profile",
+        title: "Student Profile",
+        type: "item",
+        icon: <Icon.User size={15} />,
+        navLink: "/student/student-profile/0",
+        permissions: ["admin", "editor"]
+      }
+    ]
+  },
+  {
+    id: "master_setup",
+    title: "Master Setup",
+    type: "dropdown",
+    icon: <Icon.List size={16} />,
+    children: [
+      {
+        id: "board_master",
+        title: "Board Master",
+        type: "item",
+        icon: <Icon.Briefcase size={10} />,
+        navLink: "/board-create/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "class_master",
+        title: "Class Master",
+        type: "item",
+        icon: <Icon.Users size={10} />,
+        navLink: "/class-create/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "role_master",
+        title: "Role Master",
+        type: "item",
+        icon: <Icon.User size={10} />,
+        navLink: "/role-create/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "subject_master",
+        title: "Subject Master",
+        type: "item",
+        icon: <Icon.Book size={10} />,
+        navLink: "/subject-create/0",
+        permissions: ["admin", "editor"]
+      }
+    ]
+  },
+  {
+    id: "material",
+    title: "Materials",
+    type: "dropdown",
+    icon: <Icon.Briefcase size={20} />,
+    children: [
+      {
+        id: "add_study_material",
+        title: "Add Study Material",
+        type: "item",
+        icon: <Icon.File size={15} />,
+        navLink: "/study-material/add-study-material/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "create_test",
+        title: "Create Test",
+        type: "item",
+        icon: <Icon.FilePlus size={15} />,
+        navLink: "/exam/create-test/0",
+        permissions: ["admin", "editor"]
+      }
+    ]
+  },
+  {
     id: "apps",
     title: "Apps",
     type: "dropdown",

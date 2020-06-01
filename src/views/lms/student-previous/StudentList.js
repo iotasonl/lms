@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import StudentListConfig from "./StudentListConfig";
 import queryString from "query-string";
 class StudentList extends React.Component {
@@ -9,7 +9,7 @@ class StudentList extends React.Component {
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
-            { title: "Add Student", link: "/student/add-student/2" },
+            { title: "Bulk Upload", link: "/student/student-bulk-upload" },
           ]}
           breadCrumbTitle="Student List"
           breadCrumbParent="Student"
