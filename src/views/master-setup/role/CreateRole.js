@@ -11,44 +11,51 @@ import {
 } from "reactstrap"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
+import { connect } from "react-redux"
+import {
+  postData, getData
+} from "../../../redux/actions/role/"
 
 let datas,title;
 const formSchema = Yup.object().shape({
-  name: Yup.string().required("This Field Is Required"),
+  role_name: Yup.string().required("This Field Is Required"),
 })
 
 class CreateRole extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log("a", this.props);
+    console.log("a", this.props.match.params);
   }
-  handleSubmit = (values, { setSubmitting }) => {
-    const payload = {
-      ...values,
-    };
-    if(this.props.match.params.id !== "0")
-    {
-      console.log("Updating Role..");
-    }
-    else {
-      console.log("Inserting Role..");
-    }
-    setTimeout(() => {
-      console.log(JSON.stringify(payload, null, 2));
-      setSubmitting(false);
-    }, 1000);
+  handleSubmit = (values) => {
+    const role = JSON.stringify(values, null, 2);
+    this.props.postData(role);
+    
+    // const payload = {
+    //   ...values,
+    // };
+    // if (this.props.match.params.roleId !== "0")
+    // {
+    //   console.log("Updating Role..");
+    // }
+    // else {
+    //   console.log("Inserting Role..");
+    // }
+    // setTimeout(() => {
+    //   console.log(JSON.stringify(payload, null, 2));
+    //   setSubmitting(false);
+    // }, 1000);
   };
 
   render() {
-    if(this.props.match.params.RoleId === "0")
+    if(this.props.match.params.roleId === "0")
     {
-      datas = {id: "", name: ""};
+      datas = {id: "", role_name: ""};
       title="Create Role";
     }
     else
     {
-      datas = {id: "1", name: "Admin"};
+      datas = {id: "1", role_name: "Admin"};
       title="Update Role"
     }
     return (
@@ -65,7 +72,7 @@ class CreateRole extends React.Component {
           <CardBody>
             <Formik
               initialValues={{
-                name:datas.name||"",
+                role_name:datas.role_name||"",
               }}
               validationSchema={formSchema}
               onSubmit={this.handleSubmit}
@@ -82,14 +89,14 @@ class CreateRole extends React.Component {
                     <Col md="12" className="my-1">
                       <Label for="name">Role Name</Label>
                       <Field
-                        name="name"
-                        id="name"
-                        className={`form-control ${errors.name &&
-                        touched.name &&
+                        name="role_name"
+                        id="role_name"
+                        className={`form-control ${errors.role_name &&
+                        touched.role_name &&
                         "is-invalid"}`}
                       />
-                      {errors.name && touched.name ? (
-                        <div className="invalid-tooltip mt-25">{errors.name}</div>
+                      {errors.role_name && touched.role_name ? (
+                          <div className="invalid-tooltip mt-25">{errors.role_name}</div>
                       ) : null}
                     </Col>
                   </FormGroup>
@@ -121,4 +128,13 @@ class CreateRole extends React.Component {
   )
   }
 }
-export default CreateRole
+// export default CreateRole
+const mapStateToProps = state => {
+  // console.log("state", state.roleApp.role)
+  return {
+    app: state.roleApp.role
+  }
+}
+export default connect(mapStateToProps, {
+  postData
+})(CreateRole)

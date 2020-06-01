@@ -1,122 +1,142 @@
-import React from "react"
+import React, { Component, Fragment } from "react"
 import {
   Card,
   CardBody,
-  CardHeader,
-  CardTitle,
-  Badge,
   Input,
   Button
 } from "reactstrap"
 import DataTable from "react-data-table-component"
-import {Trash, Edit, Search, Star} from "react-feather"
-import {title} from "react-bootstrap-sweetalert/dist/styles/SweetAlertStyles";
-import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
-import {Link } from "react-router-dom";
-
+import { Trash, Edit, Search } from "react-feather"
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux"
+import {
+  getSubject
+} from "../../../redux/actions/subject/"
 const CustomHeader = props => {
   return (
-      <div className="position-relative has-icon-left mb-1" style={{width:'25%' , float:'right'}}>
+    <Fragment>
+      <Link className="btn" to="/subject/create/0">
+        <Button size="md" outline color="info" className="float-left">Add</Button>
+      </Link>
+      <div className="position-relative has-icon-left mb-1" style={{ width: '25%', float: 'right' }}>
         <Input value={props.value} onChange={e => props.handleFilter(e)} />
         <div className="form-control-position">
           <Search size="15" />
         </div>
       </div>
+    </Fragment>
   )
 }
 
-class SubjectList extends React.Component {
-  constructor(props) {
-    super(props);
+const columns = [
+  {
+    name: "Sl.No",
+    selector: "id",
+    sortable: true,
+    width: "80px"
+  },
+  {
+    name: "Subject Name",
+    selector: "subject_name",
+    sortable: true
+  },
+  {
+    name: "Subject Nick Name",
+    selector: "subject_nick_name",
+    sortable: true
+  },
+  {
+    name: "Status",
+    selector: "status",
+    sortable: true,
+  },
+  {
+    name: "Action",
+    selector: "action",
+    sortable: false,
   }
-  subjectId = 2;
-  state = {
-    columns: [
-      {
-        name: "Sl.No",
-        selector: "id",
-        sortable: true
-      },
-      {
-        name: "Subject Name",
-        selector: "subject_name",
-        sortable: true
-      },
-      {
-        name: "Subject Nick Name",
-        selector: "nick_name",
-        sortable: true
-      },
-      {
-        name: "Action",
-        selector: "",
-        sortable: false,
-        cell: row => {
-          return (
-            <div className="d-flex flex-column align-items-center">
-              <ul className="list-inline mb-0">
-                <li className="list-inline-item">
-                  <Link className="text-dark w-100" to={'/subject-create/'+this.subjectId}>
-                    <Edit size="20" className="text-primary" />
-                  </Link>
-                </li>
-                <li className="list-inline-item">
-                  <Trash size="20" className="text-primary" />
-                </li>
-              </ul>
-            </div>
-          )
-        }
+]
+
+class RoleList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [],
+      value: "",
+      filteredData: [],
+    }
+  }
+
+  async componentDidMount() {
+    await this.props.getSubject()
+  }
+
+  dataFilter = () => {
+    const { app: data } = this.props;
+    const { value, filteredData } = this.state;
+    let filterData = data.map((list, key) => {
+      return {
+        id: key + 1,
+        subject_name: list.subject_name,
+        subject_nick_name: list.subject_nick_name,
+        status: list.status === true ? "ACTIVE" : "DEACTIVE",
+        c_date: list.c_date.$date,
+        action: (
+          <div className="d-flex flex-column align-items-center">
+            <ul className="list-inline mb-0">
+              <li className="list-inline-item">
+                <Link className="text-dark w-100" to={'create/' + list._id.$oid}>
+                  <Edit size="20" className="text-primary" />
+                </Link>
+              </li>
+              <li className="list-inline-item">
+                <Trash size="20" className="text-primary" />
+              </li>
+            </ul>
+          </div>
+        )
       }
-    ],
-    data: [
-      {
-        id: 1,
-        subject_name: "Math",
-        nick_name: "Math",
-        action: ""
-      },
-      {
-        id: 2,
-        subject_name: "English",
-        nick_name: "Eng",
-        action: ""
-      },
-      {
-        id: 3,
-        subject_name: "Science",
-        nick_name: "Sci",
-        action: ""
-      },
-      {
-        id: 4,
-        subject_name: "Computer",
-        nick_name: "Cmp",
-        action: ""
-      }
-    ],
-    value: "",
-    filteredData: []
+    });
+    if (!this.state.filterData) {
+      this.setState({ filterData })
+    }
+
+    if (filterData && filterData.length) {
+
+      return (
+        <DataTable
+          className="dataTable-custom"
+          // data={filterData}
+          data={value.length ? filteredData : filterData}
+          columns={columns}
+          noHeader
+          pagination
+          subHeader
+          subHeaderComponent={
+            <CustomHeader handleFilter={this.handleFilter} />
+          }
+        />
+      )
+    }
   }
 
   handleFilter = e => {
     let value = e.target.value
-    let data = this.state.data
+    const { filterData } = this.state;
     let filteredData = this.state.filteredData
     this.setState({ value })
 
     if (value.length) {
-      filteredData = data.filter(item => {
+      filteredData = filterData.filter(item => {
         let startsWithCondition =
           item.subject_name.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.nick_name.toLowerCase().startsWith(value.toLowerCase()) ||
           item.id
             .toString()
             .toLowerCase()
             .startsWith(value.toLowerCase())
         let includesCondition =
           item.subject_name.toLowerCase().includes(value.toLowerCase()) ||
-          item.nick_name.toLowerCase().includes(value.toLowerCase()) ||
           item.id
             .toString()
             .toLowerCase()
@@ -132,31 +152,24 @@ class SubjectList extends React.Component {
     }
   }
 
+
+  // [{ "_id": "5ec4ff57010068f4765f41ce" , "subject_name": "Admin", "status": true, "c_date": 1589988526809, "d_date": 1589988526809 }]
+
   render() {
-    let { columns, data, value, filteredData } = this.state
+    // console.log("props", this.state)
     return (
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
-            { title: "Create Subject ", link: "/subject-create/"+this.subjectId },
+            { title: "Create Role ", link: "/role/create/" + this.RoleId },
           ]}
-          breadCrumbTitle="Subject List"
+          breadCrumbTitle="Role List"
           breadCrumbParent="Master Setup"
-          breadCrumbActive="Subject"
+          breadCrumbActive="Role"
         />
         <Card>
           <CardBody className="rdt_Wrapper">
-            <DataTable
-              className="dataTable-custom"
-              data={value.length ? filteredData : data}
-              columns={columns}
-              noHeader
-              pagination
-              subHeader
-              subHeaderComponent={
-                <CustomHeader value={value} handleFilter={this.handleFilter} />
-              }
-            />
+            {this.props.app && this.dataFilter()}
           </CardBody>
         </Card>
       </React.Fragment>
@@ -164,4 +177,13 @@ class SubjectList extends React.Component {
   }
 }
 
-export default SubjectList
+
+const mapStateToProps = state => {
+  console.log("a", state)
+  return {
+    app: state.subjectApp.role
+  }
+}
+export default connect(mapStateToProps, {
+  getSubject
+})(RoleList)

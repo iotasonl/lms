@@ -1,5 +1,5 @@
 import React from "react";
-import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 
 import {
   Card,
