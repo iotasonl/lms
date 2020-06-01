@@ -167,14 +167,6 @@ class CreateBoard extends React.Component {
                       >
                         Submit
                       </Button.Ripple>
-                      <Button.Ripple
-                        outline
-                        color="warning"
-                        type="reset"
-                        className="mb-1"
-                      >
-                        Reset
-                      </Button.Ripple>
                     </Col>
                   </FormGroup>
                 </Form>

@@ -13,7 +13,7 @@ import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
 import { connect } from "react-redux"
 import {
-  postData, getData
+  postData
 } from "../../../redux/actions/role/"
 
 let datas,title;
@@ -25,26 +25,10 @@ class CreateRole extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log("a", this.props.match.params);
   }
   handleSubmit = (values) => {
     const role = JSON.stringify(values, null, 2);
     this.props.postData(role);
-    
-    // const payload = {
-    //   ...values,
-    // };
-    // if (this.props.match.params.roleId !== "0")
-    // {
-    //   console.log("Updating Role..");
-    // }
-    // else {
-    //   console.log("Inserting Role..");
-    // }
-    // setTimeout(() => {
-    //   console.log(JSON.stringify(payload, null, 2));
-    //   setSubmitting(false);
-    // }, 1000);
   };
 
   render() {
@@ -128,9 +112,7 @@ class CreateRole extends React.Component {
   )
   }
 }
-// export default CreateRole
 const mapStateToProps = state => {
-  // console.log("state", state.roleApp.role)
   return {
     app: state.roleApp.role
   }
