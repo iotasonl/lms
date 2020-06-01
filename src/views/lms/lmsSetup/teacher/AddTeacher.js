@@ -3,134 +3,84 @@ import {
   Button,
   Card,
   CardBody,
-  CardHeader,
-  CardTitle,
   Col,
   FormGroup,
-  Input,
   Label,
   Row,
+  Input,
 } from "reactstrap";
-import { Form, Formik } from "formik";
+import Select from "react-select";
+import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import {
-  FileInput,
-  SelectInput,
-  TextInput,
-  Textarea,
-  MultiSelect,
+  FormikReactSelect,
   RadioInput,
 } from "../../../../components/hrmsComponent/form/input";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
 
 class AddTeacher extends React.Component {
-  render() {
-    const FILE_SIZE = 160 * 1024;
-    const SUPPORTED_FORMATS = [
-      "image/jpg",
-      "image/jpeg",
-      "image/gif",
-      "image/png",
-    ];
-    const colourOptions = [
-      { value: "ocean", label: "Ocean" },
-      { value: "blue", label: "Blue" },
-      { value: "purple", label: "Purple" },
-      { value: "red", label: "Red" },
-      { value: "orange", label: "Orange" },
-      { value: "yellow", label: "Yellow" },
-    ];
-    const formSchema = Yup.object().shape({
-      name: Yup.string().required("Required").min(4, "Too Short"),
-      email: Yup.string().email("Invalid email").required("Required"),
-      phone: Yup.number()
-        .required("Teacher's name is required")
-        .min(10, "Enter a valid mobile number")
-        .max(10, "Enter a valid mobile number"),
-      image: Yup.mixed()
-        .required("A file is required")
-        .test(
-          "fileSize",
-          "File too large",
-          (value) => value && value.size <= FILE_SIZE
-        )
-        .test(
-          "fileFormat",
-          "Unsupported Format",
-          (value) => value && SUPPORTED_FORMATS.includes(value.type)
-        ),
-      class: Yup.string().ensure().required("Class is required!"),
-      subject: Yup.string().ensure().required("Subject is required!"),
-      State: Yup.string().ensure().required("Subject is required!"),
-      city: Yup.string().required("Required"),
-      address: Yup.string().required("Address is required!"),
-      pin: Yup.number()
-        .required("Pin Code is required")
-        .min(6, "Enter a valid Pin Code")
-        .max(6, "Enter a valid Pin Code"),
-    });
+  guardianPhone = 1234;
+  handleGuardianPhone = (e) => {
+    console.log(e.target.value);
+    let guardianPhoneInput = e.target.value;
+    let guardianDetails;
+    if (guardianPhoneInput !== this.guardianPhone) {
+      // guardianDetails =
+    } else {
+      // guardianDetails =
+    }
+  };
 
-    let data = {
-      _id: { $oid: "5ebfa14f9cde69cb447a3cee" },
-      board_name: "CBSE",
-      nick_name: "CBSE",
-      zone_status: "CENTRAL",
-      status: true,
-      c_date: { $date: 1589636775476 },
-      d_date: { $date: 1589636775476 },
-    };
+  render() {
+    const colourOptions = [
+      { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
+      { value: "blue", label: "Blue", color: "#0052CC", isFixed: true },
+      { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
+      { value: "red", label: "Red", color: "#FF5630", isFixed: false },
+      { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
+      { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false },
+    ];
 
     return (
       <React.Fragment>
         <Breadcrumbs
-          breadCrumbTitle="Teacher Registration"
-          breadCrumbParent="Teacher"
-          breadCrumbActive="Teacher Registration"
-          rightOptions={[
-            {
-              title: "Bulk Upload",
-              link: "/teacher/tracherBulkUpload",
-            },
-            {
-              title: "Bulk Upload",
-              link: "/teacher/tracherBulkUpload",
-            },
+          breadCrumbLinks={[
+            { title: "Bulk Upload", link: "/student/student-bulk-upload" },
           ]}
+          breadCrumbTitle="Add Student"
+          breadCrumbParent="Student"
+          breadCrumbActive="Add Student"
         />
         <Row>
           <Col lg="12" md="12">
             <Card>
-              <CardHeader>
-                <p>{data.board_name}</p>
-                <p>{data.nick_name}</p>
-                <p>{data.zone_status}</p>
-                <p>{data.status}</p>
-                <p>{data.c_date.$date}</p>
-                <p>{data.d_date.$date}</p>
-                <CardTitle>Teacher Registration</CardTitle>
-              </CardHeader>
               <CardBody>
                 <Formik
                   initialValues={{
-                    name: "",
+                    first_name: "",
+                    last_name: "",
+                    username: "",
                     email: "",
                     phone: "",
-                    image: undefined,
+                    class: null,
                     gender: "",
-                    class: [colourOptions[4], colourOptions[5]],
-                    subject: [colourOptions[4], colourOptions[5]],
-                    state: "",
-                    city: "",
+                    dob: "",
                     address: "",
+                    state: null,
+                    city: "",
                     pin: "",
+                    profile_pic: undefined,
+                    father_name: "",
+                    guardian_name: "",
+                    guardian_phone: "",
+                    guardian_email: "",
+                    relation: "",
                   }}
-                  validationSchema={formSchema}
-                  onSubmit={(values) => {
+                  onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                      toast.success(JSON.stringify(values, null, 2));
-                    }, 500);
+                      alert(JSON.stringify(values, null, 2));
+                      setSubmitting(false);
+                    }, 400);
                   }}
                 >
                   {({
@@ -142,251 +92,350 @@ class AddTeacher extends React.Component {
                     handleSubmit,
                     setFieldValue,
                     setFieldTouched,
+                    isSubmitting,
                   }) => (
                     <Form>
                       <div className="row">
-                        <div className="col-md-6 col-sm-6">
-                          <TextInput
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Teacher's Name"
-                            value={values.name}
-                            change={handleChange}
-                            blur={handleBlur}
-                            icon="User"
+                        {/*FIRST NAME*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="first_name">First Name</Label>
+                          <Field
+                            name="first_name"
+                            id="first_name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.first_name}
                             className={`form-control ${
-                              errors.name && touched.name && "is-invalid"
+                              errors.first_name &&
+                              touched.first_name &&
+                              "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.name && touched.name ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.name}
-                                </div>
-                              ) : null
-                            }
                           />
-                        </div>
-                        <div className="col-md-6 col-sm-6">
-                          <TextInput
+                          {errors.first_name && touched.first_name ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.first_name}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*LAST NAME*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="last_name">Last Name</Label>
+                          <Field
+                            name="last_name"
+                            id="last_name"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.last_name}
+                            className={`form-control ${
+                              errors.last_name &&
+                              touched.last_name &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.last_name && touched.last_name ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.last_name}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*USERNAME*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="username">Username</Label>
+                          <Field
+                            name="username"
+                            id="username"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.username}
+                            className={`form-control ${
+                              errors.username &&
+                              touched.username &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.username && touched.username ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.username}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*EMAIL*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="email">Email</Label>
+                          <Field
                             type="email"
                             name="email"
                             id="email"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             value={values.email}
-                            placeholder="Teacher's Email"
-                            change={handleChange}
-                            blur={handleBlur}
-                            icon="Mail"
                             className={`form-control ${
                               errors.email && touched.email && "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.email && touched.email ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.email}
-                                </div>
-                              ) : null
-                            }
                           />
-                        </div>
-                        <div className="col-md-4 col-sm-4">
-                          <TextInput
-                            type="number"
+                          {errors.email && touched.email ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.email}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*PHONE NUMBER*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="phone">Phone Number</Label>
+                          <Field
                             name="phone"
                             id="phone"
-                            placeholder="Teacher's Phone"
+                            type="number"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             value={values.phone}
-                            change={handleChange}
-                            blur={handleBlur}
-                            icon="Phone"
                             className={`form-control ${
                               errors.phone && touched.phone && "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.phone && touched.phone ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.phone}
-                                </div>
-                              ) : null
-                            }
                           />
-                        </div>
-                        <div className="col-md-4 col-sm-4">
-                          <FileInput
-                            id="image"
-                            name="image"
-                            value={values.image}
-                            change={handleChange}
-                            blur={handleBlur}
-                            label="Teacher's Image"
-                            className={`${
-                              errors.image && touched.image && "is-invalid"
+                          {errors.phone && touched.phone ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.phone}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*STUDENT CLASS*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="gender">Class</Label>
+                          <FormikReactSelect
+                            className={`react-select ${
+                              errors.class && touched.class && "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.image && touched.image ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.image}
-                                </div>
-                              ) : null
-                            }
+                            name="class"
+                            id="class"
+                            value={values.class}
+                            options={[
+                              { value: "Male", label: "Male" },
+                              { value: "Female", label: "Female" },
+                            ]}
+                            onChange={setFieldValue}
+                            onBlur={setFieldTouched}
                           />
-                        </div>
-                        <div className="col-md-4 col-sm-4">
+                          {errors.gender && touched.gender ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.gender}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*GENDER*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="gender">Gender</Label>
                           <br />
                           <div
                             style={{
-                              border: "1px solid #ccc",
+                              border: "1px solid #ddd",
                               borderRadius: "5px",
-                              padding: "4px 0 4px 15px",
+                              padding: "5px 20px 5px 8px",
                             }}
                           >
                             <RadioInput
-                              className="d-inline-block mr-1"
                               label="Male"
-                              defaultChecked={true}
+                              defaultChecked={false}
                               name="gender"
                               value="1"
+                              className="d-inline-block mr-1"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                             <RadioInput
-                              className="d-inline-block mr-1"
                               label="Female"
-                              defaultChecked={true}
+                              defaultChecked={false}
                               name="gender"
-                              value="0"
+                              value="2"
+                              className="d-inline-block mr-1"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
                             />
                           </div>
-                          <br />
-                          <br />
-                        </div>
-                        <div className="col-md-6 col-sm-6">
-                          <MultiSelect
-                            name="class"
-                            options={colourOptions}
-                            defaultValue={values.class}
-                            change={setFieldValue}
-                            blur={setFieldTouched}
-                            placeholder="Select Classes"
-                            className={`React ${
-                              errors.class && touched.class && "is-invalid"
-                            }`}
-                            errorDiv={
-                              errors.class && touched.class ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.class}
-                                </div>
-                              ) : null
-                            }
-                          />
-                        </div>
-                        <div className="col-md-6 col-sm-6">
-                          <MultiSelect
-                            name="subject"
-                            options={colourOptions}
-                            defaultValue={values.class}
-                            change={setFieldValue}
-                            blur={setFieldTouched}
-                            placeholder="Select Subject"
-                            className={`React ${
-                              errors.subject && touched.subject && "is-invalid"
-                            }`}
-                            errorDiv={
-                              errors.subject && touched.subject ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.subject}
-                                </div>
-                              ) : null
-                            }
-                          />
-                        </div>
-
-                        <div className="col-md-6 col-sm-6">
-                          <SelectInput
-                            name="state"
-                            label="Select State"
-                            defaultValue={colourOptions[0]}
-                            options={colourOptions}
-                            change={handleChange}
-                            blur={handleBlur}
-                            className={`React ${
+                          {errors.gender && touched.gender ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.gender}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*STATE*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="studentClass">State</Label>
+                          <FormikReactSelect
+                            className={`${
                               errors.state && touched.state && "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.state && touched.state ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.state}
-                                </div>
-                              ) : null
-                            }
+                            name="state"
+                            id="state"
+                            value={values.state}
+                            options={[
+                              { value: "Jharkhand", label: "1" },
+                              { value: "Bihar", label: "3" },
+                            ]}
+                            onChange={setFieldValue}
+                            onBlur={setFieldTouched}
                           />
-                        </div>
-                        <div className="col-md-6 col-sm-6">
-                          <TextInput
-                            type="text"
+                          {errors.state && touched.state ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.state}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*CITY*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="city">City</Label>
+                          <Field
                             name="city"
                             id="city"
-                            placeholder="City"
                             value={values.city}
-                            change={handleChange}
-                            blur={handleBlur}
-                            icon="User"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               errors.city && touched.city && "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.city && touched.city ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.city}
-                                </div>
-                              ) : null
-                            }
                           />
-                        </div>
-                        <div className="col-md-6 col-sm-6">
-                          <Textarea
-                            name="address"
+                          {errors.city && touched.city ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.city}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*ADDRESS*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="address">Address</Label>
+                          <Field
+                            component="textarea"
                             rows="1"
-                            placeholder="Enter Address"
+                            name="address"
+                            id="address"
                             value={values.address}
-                            change={handleChange}
-                            blur={handleBlur}
-                            className={`${
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={`form-control ${
                               errors.address && touched.address && "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.address && touched.address ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.address}
-                                </div>
-                              ) : null
-                            }
                           />
-                        </div>
-                        <div className="col-md-6 col-sm-6">
-                          <TextInput
+                          {errors.address && touched.address ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.address}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*PIN CODE*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="pin">Pin Code</Label>
+                          <Field
                             type="number"
                             name="pin"
                             id="pin"
-                            placeholder="Pin Code"
-                            value={values.phone}
-                            change={handleChange}
-                            blur={handleBlur}
-                            icon="Droplet"
+                            value={values.pin}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                             className={`form-control ${
                               errors.pin && touched.pin && "is-invalid"
                             }`}
-                            errorDiv={
-                              errors.pin && touched.pin ? (
-                                <div className="invalid-tooltip mt-25">
-                                  {errors.pin}
-                                </div>
-                              ) : null
-                            }
                           />
-                        </div>
+                          {errors.pin && touched.pin ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.pin}
+                            </div>
+                          ) : null}
+                        </FormGroup>
                       </div>
-                      <Button.Ripple color="primary" type="submit">
+                      <div className="row">
+                        {/*GUARDIAN PHONE*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="phone">Guardian's Phone Number</Label>
+                          <Field
+                            name="guardian_phone"
+                            id="guardian_phone"
+                            value={values.guardian_phone}
+                            onKeyUp={this.handleGuardianPhone}
+                            className={`form-control ${
+                              errors.guardian_phone &&
+                              touched.guardian_phone &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.guardian_phone && touched.guardian_phone ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.guardian_phone}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*GUARDIAN NAME*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="first_name">Guardian's Name</Label>
+                          <Field
+                            name="guardian_name"
+                            id="guardian_name"
+                            value={values.guardian_name}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={`form-control ${
+                              errors.guardian_name &&
+                              touched.guardian_name &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.guardian_name && touched.guardian_name ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.guardian_name}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*GUARDIAN EMAIL*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="email">Guardian's Email</Label>
+                          <Field
+                            type="email"
+                            name="guardian_email"
+                            id="guardian_email"
+                            value={values.guardian_email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={`form-control ${
+                              errors.guardian_email &&
+                              touched.guardian_email &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.guardian_email && touched.guardian_email ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.guardian_email}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                        {/*RELATION*/}
+                        <FormGroup className="col-md-3 col-sm-3">
+                          <Label for="email">Relation</Label>
+                          <Field
+                            name="relation"
+                            id="relation"
+                            value={values.relation}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={`form-control ${
+                              errors.relation &&
+                              touched.relation &&
+                              "is-invalid"
+                            }`}
+                          />
+                          {errors.relation && touched.relation ? (
+                            <div className="invalid-tooltip mt-25">
+                              {errors.relation}
+                            </div>
+                          ) : null}
+                        </FormGroup>
+                      </div>
+                      <Button.Ripple
+                        color="primary"
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
                         Submit
                       </Button.Ripple>
+                      <pre>{JSON.stringify(values, null, 4)}</pre>
                     </Form>
                   )}
                 </Formik>
@@ -398,4 +447,5 @@ class AddTeacher extends React.Component {
     );
   }
 }
+
 export default AddTeacher;
