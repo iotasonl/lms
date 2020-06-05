@@ -1,194 +1,327 @@
-import React from "react";
-import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
+import React, { Fragment, useState } from "react";
 import {
+  Button,
   Card,
   CardBody,
-  FormGroup,
   Col,
+  FormGroup,
   Label,
-  CardFooter,
-} from "reactstrap"
-import { Formik, Form } from "formik"
-import * as Yup from "yup"
+  Row,
+  Input,
+} from "reactstrap";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
+import { Plus, Minus } from "react-feather";
 import {
   RadioInput,
 } from "../../../components/hrmsComponent/form/input";
 
-let datas ,title;
-let i = 0 ;
-const formSchema = Yup.object().shape({
-    questionType: Yup.object()
-        .shape({
-        label: Yup.string().required(),
-        value: Yup.string().required(),
-        })
-        .nullable()
-        .required("This Field is required!"),
-    option1: Yup.string().required("This Field is required!"),
-    option2: Yup.string().required("This Field is required!"),
-    option3: Yup.string().required("This Field is required!"),
-    option4: Yup.string().required("This Field is required!"),
-    option5: Yup.string().required("This Field is required!"),
-    question: Yup.string().required("This Field is required!"),
-    marks: Yup.string()
-    .required("This Field Is Required")
-    .min("1", "Enter a valid Marks")
-    .max("3", "Enter a valid Marks"),
-})
 
-class SetQuestion extends React.Component {
-    constructor(props) {
-      super(props);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.setQuestion = this.setQuestion.bind(this);
-      this.addMore = this.addMore.bind(this);
-      this.state={
-        show:'',
-        add:'',
-        maxAdd:true,
-        questionType:'',
-      }
+let datas ,title,type;
+const SetQuestion = (props) => {
+  const [questions, setQuestions] = useState([
+    {
+      questionType:"",
+      question:"",
+      option:[
+        {
+          option1:"",
+          option2:""
+        }
+      ]
     }
-    addMore = () =>{
-      i++;
-      if(i===3)
-      {
-        this.setState({
-          maxAdd:'',
-        })
-      }
-      this.setState({
-        add:i,
-      })
+  ]);
+
+  const [questionType, setQuestionType] = useState({type: ""})
+
+  const handleAddQuestion = (type) => {
+    console.log(type)
+    const values = [...questions];
+    values.push({ question: "", topics: [] });
+    setQuestions(values);
+  };
+  //
+  //
+  // const handleAddOption = (index) => {
+  //   const values = [...chapters];
+  //   values[index].topics.push({ chapterIndex: "", topic: "" });
+  //   setChapters(values);
+  // };
+  //
+  // const handleRemoveQuestion = (index) => {
+  //   const values = [...chapters];
+  //   values.splice(index, 1);
+  //   setChapters(values);
+  // };
+  //
+  // const handleRemoveOption = (index, topicIndex) => {
+  //   const values = [...chapters];
+  //   values[index].topics.splice(topicIndex, 1);
+  //   setChapters(values);
+  // };
+
+  const handleInputChange = (index, event) => {
+    const values = [...questions];
+    console.log(event.target.name)
+    if (event.target.name === "question") {
+      values[index].question = event.target.value;
     }
-    setQuestion = (e) => {
-       console.log(e);
-      };
-    handleSubmit = (values, { setSubmitting }) => {
-      const payload = {
-        ...values,
-        answer: values.answer.value,
-      };
-      if(this.props.match.params.TestId !== "0")
-      {
-        console.log("Updating Board..");
-      }
-      else {
-        console.log("Inserting Board..");
-      }
-    setTimeout(() => {
-        console.log(JSON.stringify(payload, null, 2));
-        setSubmitting(false);
-      }, 1000);
+    else if(event.target.name === "questionType"){
+      values.type = event.target.value
+      setQuestionType(values);
+    }
+    else {
+      // values[index].topic = event.target.value;
+    }
+    setQuestions(values);
+  };
+  // const handleSubmit = (values, { setSubmitting }) => {
+  //   const payload = {
+  //     ...values,
+  //     option: values.option.value,
+  //   };
+  //   setTimeout(() => {
+  //     console.log(JSON.stringify(payload, null, 2));
+  //     setSubmitting(false);
+  //   }, 1000);
+  // };
+  // const handleChange = (value) => {
+  //   props.onChange(props.name, value);
+  //   console.log(value.target.value);
+  // };
+  // const handleBlur = () => {
+  //   props.onBlur(props.name, true);
+  // };
+  // handleSubmit = (values, { setSubmitting }) => {
+  //   const payload = {
+  //     ...values,
+  //     answer: values.answer.value,
+  //   };
+  //   if(props.match.params.TestId !== "0")
+  //   {
+  //     console.log("Updating Board..");
+  //   }
+  //   else {
+  //     console.log("Inserting Board..");
+  //   }
+  //   setTimeout(() => {
+  //     console.log(JSON.stringify(payload, null, 2));
+  //     setSubmitting(false);
+  //   }, 1000);
+  // };
+
+  if(props.match.params.TestId === "0")
+  {
+    datas = {
+      id: "",
+      question: "",
+      answer:"",
+      option1:"",
+      option2:"",
+      option3:"",
+      option4:"",
+      option5:"",
+      marks:""
     };
-    render() {
-      if(this.props.match.params.TestId === "0")
-      {
-        datas = {
-                id: "",
-                questionType: [{
-                    "value": "",
-                    "label": ""
-                  }],
-                question: "",
-                answer:"",
-                option1:"",
-                option2:"",
-                option3:"",
-                option4:"",
-                option5:"",
-                marks:""
-          };
-          title="Set Question";
-      }
-      else
-      {
-        datas = {
-          id: "1",
-          questionType: [{
-              "value": "Science",
-              "label": "Science"
-            }],
-          question: "What is this??",
-          answer:"2",
-          option1:"Okkk",
-          option2:"Laptop",
-          option3:"watch",
-          option4:"Fun",
-          option5:"Bad",
-          marks:"100"
-          };
-         title="Update Question";
-      }
-      return (
-        <React.Fragment>
-          <Breadcrumbs
-            breadCrumbLinks={[
-              { title: "Test List", link: "/exam/test-list" },
-            ]}
-            breadCrumbTitle={title}
-            breadCrumbParent="Material"
-            breadCrumbActive={title}
-          />
+    title="Set Question";
+  }
+  else
+  {
+    datas = {
+      id: "1",
+      question: "What is this??",
+      answer:"2",
+      option1:"Okkk",
+      option2:"Laptop",
+      option3:"watch",
+      option4:"Fun",
+      option5:"Bad",
+      marks:"100"
+    };
+    title="Update Question";
+  }
+
+  return (
+    <React.Fragment>
+      <Breadcrumbs
+        breadCrumbLinks={[
+          { title: "Test List", link: "/exam/test-list" },
+        ]}
+        breadCrumbTitle={title}
+        breadCrumbParent="Material"
+        breadCrumbActive={title}
+      />
+      <Row>
+        <Col lg="12" md="12">
           <Card>
             <CardBody>
-              <Formik
-                initialValues={{
-                  questionType: datas.questionType,
-                  question: datas.question,
-                  marks:datas.marks,
-                  answer:datas.answer,
-                  option1:datas.option1,
-                  option2:datas.option2,
-                  option3:datas.option3,
-                  option4:datas.option4,
-                  option5:datas.option5,
-                }}
-                validationSchema={formSchema}
-                onSubmit={this.handleSubmit}
-              >
-                {({
-                    handleChange,
-                    handleBlur,
-                  }) => (
-                  <Form>
-                    <FormGroup row >
-                      <Col className="my-2 col-md-9 col-sm-12">
-                      </Col>
-                      <Col className="my-2 col-md-3 col-sm-12 row">
-                      <FormGroup className="col-md-1 col-sm-12">
-                            <div>
-                              <RadioInput
-                                  defaultChecked={true}
-                                  name="answer"
-                                  value="1"
-                                  className="d-inline-block mr-1"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                              />
+              <form>
+                <div className="row">
+                  <Col className="my-2 col-md-8 col-sm-12">
+                    {questions.map((question, index) => (
+                      <Fragment key={`${question}~${index}`}>
+                        <div className="row">
+                          {/*FIRST NAME*/}
+                          <FormGroup className="col-md-10 col-sm-2">
+                            <Label for="chapter">Question- {index + 1}</Label>
+                            <Input
+                              style={{ marginBottom: "5px" }}
+                              type="text"
+                              name="chapter"
+                              id={`${question}~${index}`}
+                              value={question.question}
+                              // onChange={(event) => handleInputChange(index, event)}
+                            />
+                            {questions[index].options
+                              ? questions[index].options.map((option, optionIndex) => (
+                                <Fragment key={`${option}~${optionIndex}`}>
+                                  <div className="row">
+                                    <div
+                                      className="col-md-1"
+                                      style={{ borderRight: "1px solid #28c76f" }}
+                                    />
+                                    <div className="col-md-10 col-10">
+                                      <Input
+                                        type="text"
+                                        name="topic"
+                                        className="round form-control-sm"
+                                        id={`${option}~${optionIndex}`}
+                                        value={option.option}
+                                      />
+                                      {console.log(option + optionIndex + index)}
+                                    </div>
+                                    <div className="col-md-1 col-2">
+                                      <Button.Ripple
+                                        color="flat-success"
+                                        className="btn-icon btn-sm"
+                                        // onClick={() =>
+                                        //   handleRemoveTopic(index, optionIndex)
+                                        // }
+                                      >
+                                        <Minus size={16} />
+                                      </Button.Ripple>
+                                    </div>
+                                  </div>
+                                </Fragment>
+                              ))
+                              : ""}
+                            <div className="row">
+                              <div className="col-1" />
+                              <div className="col-3">
+                                <Button.Ripple
+                                  color="primary"
+                                  className="btn-sm"
+                                  type="button"
+                                  // onClick={() => handleAddTopic(index)}
+                                >
+                                  Add Topic
+                                </Button.Ripple>
+                              </div>
                             </div>
                           </FormGroup>
-                          <FormGroup className="col-md-11 col-sm-12">
-                            <Label for="option1">Option 1</Label>
-                          </FormGroup>
-                      </Col>
+                          {questions.length >= 2 ? (
+                            <div className="d-inline-block mr-1 mb-1">
+                              <br />{" "}
+                              <Button.Ripple
+                                type="button"
+                                className="btn-icon"
+                                color="warning"
+                                // onClick={() => handleRemoveFields(index)}
+                              >
+                                <Minus size={16} />
+                              </Button.Ripple>
+                            </div>
+                          ) : null}
+                          <div className="d-inline-block mr-1 mb-1">
+                            <br />{" "}
+                            <Button.Ripple
+                              type="button"
+                              className="btn-icon"
+                              color="warning"
+                              // onClick={() => handleAddFields()}
+                            >
+                              <Plus size={16} />
+                            </Button.Ripple>
+                          </div>
+                        </div>
+                        <hr />
+                  </Fragment>
+                ))}
+                </Col>
+                <Col className="my-2 col-md-4 col-sm-12 row">
+                    <FormGroup className="col-md-12 col-sm-12">
+                      <div
+                        style={{
+                          borderRadius: "5px",
+                          padding: "5px 20px 5px 8px",
+                        }}
+                      >
+                        <RadioInput
+                          label="Multiple Choice Question (MCQ)"
+                          defaultChecked={true}
+                          name="questionType"
+                          value="1"
+                          className="d-inline-block mr-1"
+
+                          onChange={() => handleInputChange}
+                        />
+                      </div>
+                      <br />
+                      <div
+                        style={{
+                          borderRadius: "5px",
+                          padding: "5px 20px 5px 8px",
+                        }}
+                      >
+                        <RadioInput
+                          label="Long Answer Question"
+                          defaultChecked={false}
+                          name="questionType"
+                          value="2"
+                          className="d-inline-block mr-1"
+                          onChange={() => handleInputChange}
+                        />
+                      </div>
+                      <br />
+                      <div
+                        style={{
+                          borderRadius: "5px",
+                          padding: "5px 20px 5px 8px",
+                        }}
+                      >
+                        <RadioInput
+                          label="Short Answer Qusetion"
+                          defaultChecked={false}
+                          name="questionType"
+                          value="3"
+                          className="d-inline-block mr-1"
+                          onChange={() => handleInputChange}
+                        />
+                      </div>
+                      <div className="justify-content-end">
+                        <Col mt="2">
+                          <Button.Ripple color="primary" onClick={()=>handleAddQuestion(questionType)}>
+                            ADD
+                          </Button.Ripple>
+                        </Col>
+                      </div>
                     </FormGroup>
-                  </Form>
-                )}
-              </Formik>
+                  </Col>
+                </div>
+                <Button.Ripple
+                  color="primary"
+                  type="submit"
+                  // disabled={isSubmitting}
+                >
+                  Submit
+                </Button.Ripple>
+                <pre>{JSON.stringify(questions, null, 2)}</pre>
+              </form>
             </CardBody>
-            <CardFooter className="row">
-              <Col md="2">
-                <Label>Note:</Label>
-              </Col>
-              <Col md="10" style={{float:'right'}}>
-                <Label>* Maximum 5 Option Can Be Add!</Label><br> </br>
-                <Label ml="3">* Select Radio Button In For Correct Answer!</Label>
-              </Col>
-            </CardFooter>
           </Card>
-        </React.Fragment>
-    )
-    }
-  }
-  export default SetQuestion
+        </Col>
+      </Row>
+    </React.Fragment>
+  );
+};
+
+export default SetQuestion;

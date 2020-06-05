@@ -9,11 +9,17 @@ import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions";
 import { ContextLayout } from "./utility/context/Layout";
 
 // Master Setup
-const RoleList = lazy(() => import("./views/master-setup/role/RoleList"));
-const CreateRole = lazy(() => import("./views/master-setup/role/CreateRole"));
+const Createboard = lazy(() => import("./views/master-setup/board/CreateBoard") )
+const Readboard = lazy(() => import("./views/master-setup/board/BoardList") )
 
-const SubjectList = lazy(() => import("./views/master-setup/subject/SubjectList"));
-const CreateSubject = lazy(() => import("./views/master-setup/subject/CreateSubject"));
+const Createclass = lazy(() => import("./views/master-setup/class/CreateClass") )
+const Listclass = lazy(() => import("./views/master-setup/class/ClassList") )
+
+const Createrole= lazy(() => import("./views/master-setup/role/CreateRole") )
+const Listrole = lazy(() => import("./views/master-setup/role/RoleList") )
+
+const Createsubject= lazy(() => import("./views/master-setup/subject/CreateSubject") )
+const Listsubjcet = lazy(() => import("./views/master-setup/subject/SubjectList") )
 
 // Route-based code splitting
 const add_teacher = lazy(() => import("./views/lms/teacher/add_teacher"));
@@ -22,6 +28,14 @@ const studentBulkUpload = lazy(() =>
 );
 const AddStudent = lazy(() => import("./views/lms/student/AddStudent"));
 const studentList = lazy(() => import("./views/lms/student/StudentList"));
+const StudentProfile = lazy(() => import("./views/lms/student/StudentProfile"));
+// Material
+const AddStudyMaterial = lazy(() => import("./views/lms/study-material/AddStudyMaterial"));
+const ViewStudyMaterial = lazy(() => import("./views/lms/study-material/ViewStudyMaterial"));
+const CreateTest = lazy(() => import("./views/lms/exam/CreateTest"));
+const TestList = lazy(() => import("./views/lms/exam/TestList"));
+const SetQuestion = lazy(() => import("./views/lms/exam/SetQuestion"));
+// /Material
 const list_teacher = lazy(() => import("./views/lms/teacher/list_teacher"));
 const list_teacher_dt = lazy(() =>
   import("./views/lms/teacher/list_teacher_dt")
@@ -272,10 +286,22 @@ class AppRouter extends React.Component {
             path="/ecommerce-dashboard"
             component={ecommerceDashboard}
           />
-          <AppRoute path="/role/list" component={RoleList} />
-          <AppRoute path="/role/create/:roleId" component={CreateRole} />
-          <AppRoute path="/subject/list" component={SubjectList} />
-          <AppRoute path="/subject/create/:roleId" component={CreateSubject} />
+          {/*Master Setup*/}
+          <AppRoute
+            path="/board-create/:Boardid"
+            component={Createboard}
+          />
+          <AppRoute
+            path="/board-list"
+            component={Readboard}
+          />
+          <AppRoute path="/class-create/:ClassId" component={Createclass} />
+          <AppRoute path="/class-list" component={Listclass} />
+          <AppRoute path="/role-create/:RoleId" component={Createrole} />
+          <AppRoute path="/role-list" component={Listrole} />
+          <AppRoute path="/subject-create/:subjectId" component={Createsubject} />
+          <AppRoute path="/subject-list" component={Listsubjcet} />
+          {/*/Master Setup*/}
           <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
           <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
           <AppRoute path="/syllabus/syllabusList" component={syllabusList} />
@@ -295,6 +321,28 @@ class AppRouter extends React.Component {
           />
           <AppRoute path="/student/add-student" component={AddStudent} />
           <AppRoute path="/student/student-list" component={studentList} />
+          <AppRoute path="/student/student-profile/:StudentId" component={StudentProfile} />
+
+          <AppRoute
+            path="/study-material/add-study-material/:StudyMaterialId"
+            component={AddStudyMaterial}
+          />
+          <AppRoute
+            path="/study-material/view-study-material"
+            component={ViewStudyMaterial}
+          />
+          <AppRoute
+            path="/exam/create-test/:TestId"
+            component={CreateTest}
+          />
+          <AppRoute
+            path="/exam/test-list"
+            component={TestList}
+          />
+          <AppRoute
+            path="/exam/set-question/:TestId"
+            component={SetQuestion}
+          />
           <AppRoute
             path="/email"
             exact
