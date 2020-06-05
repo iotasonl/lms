@@ -5,9 +5,9 @@ import {
   Input,
 } from "reactstrap"
 import DataTable from "react-data-table-component"
-import { Trash, Edit, Search } from "react-feather"
+import {Trash, Edit, Search} from "react-feather"
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-import { Link } from "react-router-dom";
+import {Link } from "react-router-dom";
 import { connect } from "react-redux"
 import {
   getData
@@ -15,20 +15,21 @@ import {
 
 const CustomHeader = props => {
   return (
-    <div className="position-relative has-icon-left mb-1" style={{ width: '25%', float: 'right' }}>
-      <Input value={props.value} onChange={e => props.handleFilter(e)} />
-      <div className="form-control-position">
-        <Search size="15" />
+      <div className="position-relative has-icon-left mb-1" style={{width:'25%' , float:'right'}}>
+        <Input value={props.value} onChange={e => props.handleFilter(e)} />
+        <div className="form-control-position">
+          <Search size="15" />
+        </div>
       </div>
-    </div>
   )
 }
 
-const columns = [
+const columns =  [
   {
     name: "Sl.No",
     selector: "id",
-    sortable: true
+    sortable: true,
+    width:"80px"
   },
   {
     name: "Role Name",
@@ -54,27 +55,20 @@ class RoleList extends React.Component {
       data: [],
       value: "",
       filteredData: [],
-      
-      roleData: [],
     }
   }
 
   async componentDidMount() {
     await this.props.getData()
-    this.setState({
-      data: this.props.app,
-    })
-    this.state.data && this.state.data.length && this.dataFilter()
   }
 
-  dataFilter = () => {
-    const { data } = this.state;
-    let filterData = data.map((list, key) => {
+  dataFilter = ()=>{
+    const {app: data} = this.props;
+    const {value, filteredData} = this.state;
+    let filterData = data.map((list, key)=>{
       return {
-        id: list._id.$oid,
         role_name: list.role_name,
         status: list.status === true ? "ACTIVE" : "DEACTIVE",
-        c_date: list.c_date.$date,
         action: (
           <div className="d-flex flex-column align-items-center">
             <ul className="list-inline mb-0">
@@ -91,19 +85,36 @@ class RoleList extends React.Component {
         )
       }
     });
-    if (filterData && filterData.length) {
-      this.setState({ roleData: filterData })
+    if(!this.state.filterData)
+    {
+      this.setState({filterData})
+    }
+    
+    if(filterData && filterData.length){
+      return (
+        <DataTable
+          className="dataTable-custom"
+          data={value.length ? filteredData : filterData}
+          columns={columns}
+          noHeader
+          pagination
+          subHeader
+          subHeaderComponent={
+            <CustomHeader handleFilter={this.handleFilter} />
+          }
+        />
+      )
     }
   }
 
   handleFilter = e => {
     let value = e.target.value
-    let data = this.state.data
+    const {filterData} = this.state;
     let filteredData = this.state.filteredData
     this.setState({ value })
 
     if (value.length) {
-      filteredData = data.filter(item => {
+      filteredData = filterData.filter(item => {
         let startsWithCondition =
           item.role_name.toLowerCase().startsWith(value.toLowerCase()) ||
           item.id
@@ -128,12 +139,11 @@ class RoleList extends React.Component {
   }
 
   render() {
-    let { roleData, value, filteredData } = this.state
     return (
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
-            { title: "Create Role ", link: "/role-create/" + this.RoleId },
+            { title: "Create Role ", link: "/role-create/"+this.RoleId },
           ]}
           breadCrumbTitle="Role List"
           breadCrumbParent="Master Setup"
@@ -141,17 +151,7 @@ class RoleList extends React.Component {
         />
         <Card>
           <CardBody className="rdt_Wrapper">
-            <DataTable
-              className="dataTable-custom"
-              data={value.length ? filteredData : roleData}
-              columns={columns}
-              noHeader
-              pagination
-              subHeader
-              subHeaderComponent={
-                <CustomHeader value={value} handleFilter={this.handleFilter} />
-              }
-            />
+            {this.props.app && this.dataFilter()}
           </CardBody>
         </Card>
       </React.Fragment>
