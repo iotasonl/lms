@@ -91,11 +91,9 @@ class RoleList extends React.Component {
     }
     
     if(filterData && filterData.length){
-
       return (
         <DataTable
           className="dataTable-custom"
-          // data={filterData}
           data={value.length ? filteredData : filterData}
           columns={columns}
           noHeader
@@ -140,11 +138,7 @@ class RoleList extends React.Component {
     }
   }
 
-
-  // [{ "_id": "5ec4ff57010068f4765f41ce" , "role_name": "Admin", "status": true, "c_date": 1589988526809, "d_date": 1589988526809 }]
-
   render() {
-    // console.log("props", this.state)
     return (
       <React.Fragment>
         <Breadcrumbs
@@ -164,7 +158,6 @@ class RoleList extends React.Component {
     )
   }
 }
-
 
 const mapStateToProps = state => {
   return {
