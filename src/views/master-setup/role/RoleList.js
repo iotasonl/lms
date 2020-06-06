@@ -1,26 +1,26 @@
-import React from "react"
-import {
-  Card,
-  CardBody,
-  Input,
-} from "reactstrap"
+import React, { Fragment } from "react"
+import { Card, CardBody, Input, Button, Badge } from "reactstrap"
 import DataTable from "react-data-table-component"
-import {Trash, Edit, Search} from "react-feather"
+import { Trash, Edit, Search } from "react-feather"
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux"
-import {
-  getData
-} from "../../../redux/actions/role/"
+import { getData } from "../../../redux/actions/role/"
+import moment from 'moment'
 
 const CustomHeader = props => {
   return (
-      <div className="position-relative has-icon-left mb-1" style={{width:'25%' , float:'right'}}>
+    <Fragment>
+      <Link className="btn" to="/role/create">
+        <Button size="md" rounded outline color="info" className="float-left">Add</Button>
+      </Link>
+      <div className="position-relative has-icon-left mb-1" style={{ width: '25%', float: 'right' }}>
         <Input value={props.value} onChange={e => props.handleFilter(e)} />
         <div className="form-control-position">
           <Search size="15" />
         </div>
       </div>
+    </Fragment>
   )
 }
 
@@ -42,6 +42,11 @@ const columns =  [
     sortable: true,
   },
   {
+    name: "Created Date",
+    selector: "c_date",
+    sortable: true,
+  },
+  {
     name: "Action",
     selector: "action",
     sortable: false,
@@ -59,26 +64,39 @@ class RoleList extends React.Component {
   }
 
   async componentDidMount() {
-    await this.props.getData()
+    await this.props.getData('{}', '{}')
   }
 
   dataFilter = ()=>{
+    console.log("ss", this.props)
     const {app: data} = this.props;
     const {value, filteredData} = this.state;
     let filterData = data.map((list, key)=>{
       return {
+        id: key+1,
         role_name: list.role_name,
-        status: list.status === true ? "ACTIVE" : "DEACTIVE",
+        c_date: moment(list.c_date).format('DD-MM-YYYY'),
+        status: (list.status === true ? (
+          <Badge color="primary" className="mr-1 mb-1">
+            ACTIVE
+          </Badge>
+        ) : (
+            <Badge color="danger" className="mr-1 mb-1">
+              INACTIVE
+            </Badge>
+        )),
         action: (
           <div className="d-flex flex-column align-items-center">
             <ul className="list-inline mb-0">
               <li className="list-inline-item">
-                <Link className="text-dark w-100" to={'/role-create/'}>
+                <Link className="text-dark w-100" to={'/role/create/'+list.id}>
                   <Edit size="20" className="text-primary" />
                 </Link>
               </li>
               <li className="list-inline-item">
-                <Trash size="20" className="text-primary" />
+                <Link className="text-dark w-100" to={'/role/create/' + list.id}>
+                  <Trash size="20" className="text-primary" />
+                </Link>
               </li>
             </ul>
           </div>
@@ -160,6 +178,7 @@ class RoleList extends React.Component {
 }
 
 const mapStateToProps = state => {
+  // console.log("state", state)
   return {
     app: state.roleApp.role
   }

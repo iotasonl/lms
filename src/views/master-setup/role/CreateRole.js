@@ -1,20 +1,10 @@
 import React from "react";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-
-import {
-  Card,
-  CardBody,
-  FormGroup,
-  Button,
-  Col,
-  Label
-} from "reactstrap"
+import { Card, CardBody, FormGroup, Button, Col, Label} from "reactstrap"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
 import { connect } from "react-redux"
-import {
-  postData
-} from "../../../redux/actions/role/"
+import { postData, getData } from "../../../redux/actions/role/"
 
 let datas,title;
 const formSchema = Yup.object().shape({
@@ -31,9 +21,17 @@ class CreateRole extends React.Component {
     this.props.postData(role);
   };
 
+  async componentDidMount() {
+    const jsonData = '{}';
+    const wClause = '{"id":"' + this.props.match.params.roleId + '"}';
+    await this.props.getData(jsonData, wClause);
+  }
+
   render() {
-    if(this.props.match.params.roleId === "0")
+    console.log(this.props)
+    if (this.props.match.params.roleId === "0")
     {
+      
       datas = {id: "", role_name: ""};
       title="Create Role";
     }
@@ -45,9 +43,6 @@ class CreateRole extends React.Component {
     return (
       <React.Fragment>
         <Breadcrumbs
-          breadCrumbLinks={[
-            { title: "Role List", link: "/role-list" },
-          ]}
           breadCrumbTitle={title}
           breadCrumbParent="Master Setup"
           breadCrumbActive="Role"
@@ -56,7 +51,7 @@ class CreateRole extends React.Component {
           <CardBody>
             <Formik
               initialValues={{
-                role_name:datas.role_name||"",
+                role_name:datas.role_name,
               }}
               validationSchema={formSchema}
               onSubmit={this.handleSubmit}
@@ -113,10 +108,11 @@ class CreateRole extends React.Component {
   }
 }
 const mapStateToProps = state => {
+  console.log("state", state.roleApp)
   return {
     app: state.roleApp.role
   }
 }
 export default connect(mapStateToProps, {
-  postData
+  postData, getData
 })(CreateRole)
