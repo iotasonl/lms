@@ -275,7 +275,7 @@ class AppRouter extends React.Component {
           <AppRoute path="/role/list" component={RoleList} />
           <AppRoute path="/role/create/:roleId" component={CreateRole} />
           <AppRoute path="/subject/list" component={SubjectList} />
-          <AppRoute path="/subject/create/:roleId" component={CreateSubject} />
+          <AppRoute path="/subject/create/:subjectId" component={CreateSubject} />
           <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
           <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
           <AppRoute path="/syllabus/syllabusList" component={syllabusList} />
