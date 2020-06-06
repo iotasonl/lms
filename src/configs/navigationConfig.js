@@ -28,7 +28,47 @@ const navigationConfig = [
     ],
   },
   {
-    id: "sybllabus",
+    id: "masterSetup",
+    title: "Master Setup",
+    type: "collapse",
+    icon: <Icon.Home size={20} />,
+    children: [
+      {
+        id: "board",
+        title: "Board",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin", "editor"],
+        navLink: "/board/list",
+      },
+      {
+        id: "role",
+        title: "Role",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin"],
+        navLink: "/role/list",
+      },
+      {
+        id: "subject",
+        title: "Subject",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin"],
+        navLink: "/subject/list",
+      },
+      {
+        id: "class",
+        title: "Class",
+        type: "item",
+        icon: <Icon.Circle size={12} />,
+        permissions: ["admin"],
+        navLink: "/class/list",
+      },
+    ],
+  },
+  {
+    id: "syllabus",
     title: "Syllabus",
     type: "collapse",
     icon: <Icon.Home size={20} />,
@@ -50,6 +90,103 @@ const navigationConfig = [
         navLink: "/syllabus/syllabusList",
       },
     ],
+  },
+  {
+    id: "master_setup",
+    title: "Master Setup",
+    type: "collapse",
+    icon: <Icon.List size={20} />,
+    children: [
+      {
+        id: "board_master",
+        title: "Board Master",
+        type: "item",
+        icon: <Icon.Briefcase size={16} />,
+        navLink: "/board-create/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "class_master",
+        title: "Class Master",
+        type: "item",
+        icon: <Icon.Users size={16} />,
+        navLink: "/class-create/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "role_master",
+        title: "Role Master",
+        type: "item",
+        icon: <Icon.User size={16} />,
+        navLink: "/role-create/0",
+        permissions: ["admin", "editor"]
+      }
+      ,
+      {
+        id: "subject_master",
+        title: "Subject Master",
+        type: "item",
+        icon: <Icon.Book size={16} />,
+        navLink: "/subject-create/0",
+        permissions: ["admin", "editor"]
+      }
+    ]
+  },
+  {
+    id: "student",
+    title: "Student",
+    type: "collapse",
+    icon: <Icon.UserCheck size={20} />,
+    children: [
+      {
+        id: "student_add",
+        title: "Add Student",
+        type: "item",
+        icon: <Icon.UserPlus size={15} />,
+        navLink: "/student/add-student/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "student_list",
+        title: "Student List",
+        type: "item",
+        icon: <Icon.Users size={15} />,
+        navLink: "/student/student-list",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "student_profile",
+        title: "Student Profile",
+        type: "item",
+        icon: <Icon.User size={15} />,
+        navLink: "/student/student-profile/0",
+        permissions: ["admin", "editor"]
+      }
+    ]
+  },
+  {
+    id: "material",
+    title: "Materials",
+    type: "collapse",
+    icon: <Icon.Briefcase size={20} />,
+    children: [
+      {
+        id: "add_study_material",
+        title: "Add Study Material",
+        type: "item",
+        icon: <Icon.File size={15} />,
+        navLink: "/study-material/add-study-material/0",
+        permissions: ["admin", "editor"]
+      },
+      {
+        id: "create_test",
+        title: "Create Test",
+        type: "item",
+        icon: <Icon.FilePlus size={15} />,
+        navLink: "/exam/create-test/0",
+        permissions: ["admin", "editor"]
+      }
+    ]
   },
   {
     type: "groupHeader",
