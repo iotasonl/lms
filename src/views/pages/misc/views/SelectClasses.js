@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormikContext, Field } from "formik";
+import { useFormikContext } from "formik";
 import { FormGroup, Row, Col } from "reactstrap";
 import { animated, Spring } from "react-spring/renderprops";
 import bg6 from "../../../../assets/img/backgrounds/bg-6.png";
@@ -100,7 +100,7 @@ function SelectClasses() {
         }}
         config={{ duration: 600 }}
       >
-        {(bgStyle) => <img src={bg6} style={{ ...imgStyle, ...bgStyle }} />}
+        {(bgStyle) => <img src={bg6} style={{ ...imgStyle, ...bgStyle }}  alt="Profile"/>}
       </Spring>
     </React.Fragment>
   );

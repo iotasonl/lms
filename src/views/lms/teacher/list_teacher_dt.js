@@ -12,10 +12,6 @@ import DataTable from "react-data-table-component"
 import {
     Edit,
     Trash,
-    ChevronDown,
-    Check,
-    ChevronLeft,
-    ChevronRight,
     Search
 } from "react-feather"
 
@@ -101,7 +97,7 @@ class Teacher_list extends React.Component {
                 name: "Action",
                 selector: "",
                 sortable: true,
-                cell: row => (
+                cell: () => (
                     <div>
                         <Edit
                             className="cursor-pointer mr-1"

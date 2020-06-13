@@ -2,103 +2,126 @@ import React from "react"
 import {
   Card,
   CardBody,
-  Input
+  Input,
 } from "reactstrap"
 import DataTable from "react-data-table-component"
 import {Trash, Edit, Search} from "react-feather"
-import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import {Link } from "react-router-dom";
+import { connect } from "react-redux"
+import {
+  getData
+} from "../../../redux/actions/class/"
+import { ToastContainer } from "react-toastify"
 
 const CustomHeader = props => {
   return (
-      <div className="position-relative has-icon-left mb-1" style={{width:'25%' , float:'right'}}>
-        <Input value={props.value} onChange={e => props.handleFilter(e)} />
-        <div className="form-control-position">
-          <Search size="15" />
-        </div>
+    <div className="position-relative has-icon-left mb-1" style={{width:'25%' , float:'right'}}>
+      <Input value={props.value} onChange={e => props.handleFilter(e)} />
+      <div className="form-control-position">
+        <Search size="15" />
       </div>
+    </div>
   )
 }
 
+const columns =  [
+  {
+    name: "Sl.NO",
+    selector: "id",
+    sortable: true
+  },
+  {
+    name: "CLASS NAME",
+    selector: "class_name",
+    sortable: true
+  },
+  {
+    name: "NUMERIC VALUE",
+    selector: "numeric_value",
+    sortable: true
+  },
+  {
+    name: "STATUS",
+    selector: "status",
+    sortable: true,
+  },
+  {
+    name: "ACTION",
+    selector: "action",
+    sortable: false,
+  }
+]
+
 class ClassList extends React.Component {
-  ClassId=5;
-  state = {
-    columns: [
-      {
-        name: "Sl.No",
-        selector: "id",
-        sortable: true
-      },
-      {
-        name: "Class Name",
-        selector: "class_name",
-        sortable: true
-      },
-      {
-        name: "Numeric Value",
-        selector: "numeric_value",
-        sortable: true
-      },
-      {
-        name: "Action",
-        selector: "",
-        sortable: false,
-        cell: () => {
-          return (
-            <div className="d-flex flex-column align-items-center">
-              <ul className="list-inline mb-0">
-                <li className="list-inline-item">
-                  <Link className="text-dark w-100" to={'/class-create/'+this.ClassId}>
-                    <Edit size="20" className="text-primary" />
-                  </Link>
-                </li>
-                <li className="list-inline-item">
-                  <Trash size="20" className="text-primary" />
-                </li>
-              </ul>
-            </div>
-          )
-        }
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [],
+      value: "",
+      filteredData: [],
+    }
+  }
+
+  async componentDidMount() {
+    await this.props.getData("{}", "{}")
+  }
+
+  dataFilter = ()=>{
+    const {app: data} = this.props;
+    const {value, filteredData} = this.state;
+    let filterData = data.map((list, key)=>{
+      return {
+        id:++key,
+        class_name: list.class_name,
+        numeric_value: list.class_numeric_name,
+        status: list.status === true ? "ACTIVE" : "DEACTIVE",
+        action: (
+          <div className="d-flex flex-column align-items-center">
+            <ul className="list-inline mb-0">
+              <li className="list-inline-item">
+                <Link className="text-dark w-100" to={'/board-create/'}>
+                  <Edit size="20" className="text-primary" />
+                </Link>
+              </li>
+              <li className="list-inline-item">
+                <Trash size="20" className="text-primary" />
+              </li>
+            </ul>
+          </div>
+        )
       }
-    ],
-    data: [
-      {
-        id: 1,
-        class_name: "One",
-        numeric_value: "1",
-        action: ""
-      },
-      {
-        id: 2,
-        class_name: "Two",
-        numeric_value: "2",
-        action: ""
-      },
-      {
-        id: 3,
-        class_name: "Four",
-        numeric_value: "4",
-        action: ""
-      },
-      {
-        id: 4,
-        class_name: "Five",
-        numeric_value: "5",
-        action: ""
-      }
-    ],
-    value: "",
-    filteredData: []
+    });
+    if(!this.state.filterData)
+    {
+      this.setState({filterData})
+    }
+
+    if(filterData && filterData.length){
+      return (
+        <DataTable
+          className="dataTable-custom"
+          data={value.length ? filteredData : filterData}
+          columns={columns}
+          noHeader
+          pagination
+          subHeader
+          subHeaderComponent={
+            <CustomHeader handleFilter={this.handleFilter} />
+          }
+        />
+      )
+    }
   }
 
   handleFilter = e => {
     let value = e.target.value
-    let data = this.state.data
+    const {filterData} = this.state;
     let filteredData = this.state.filteredData
     this.setState({ value })
 
     if (value.length) {
-      filteredData = data.filter(item => {
+      filteredData = filterData.filter(item => {
         let startsWithCondition =
           item.class_name.toLowerCase().startsWith(value.toLowerCase()) ||
           item.id
@@ -123,12 +146,11 @@ class ClassList extends React.Component {
   }
 
   render() {
-    let { columns, data, value, filteredData } = this.state
     return (
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
-            { title: "Create Class ", link: "/class-create/0" },
+            { title: "Create Class", link: "/class-create/0"},
           ]}
           breadCrumbTitle="Class List"
           breadCrumbParent="Master Setup"
@@ -136,22 +158,20 @@ class ClassList extends React.Component {
         />
         <Card>
           <CardBody className="rdt_Wrapper">
-            <DataTable
-              className="dataTable-custom"
-              data={value.length ? filteredData : data}
-              columns={columns}
-              noHeader
-              pagination
-              subHeader
-              subHeaderComponent={
-                <CustomHeader value={value} handleFilter={this.handleFilter} />
-              }
-            />
+            {this.props.app && this.dataFilter()}
           </CardBody>
         </Card>
+        <ToastContainer />
       </React.Fragment>
     )
   }
 }
 
-export default ClassList
+const mapStateToProps = state => {
+  return {
+    app: state.classApp.class
+  }
+}
+export default connect(mapStateToProps, {
+  getData
+})(ClassList)

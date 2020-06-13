@@ -13,13 +13,18 @@ import * as Yup from "yup"
 import {
   FormikReactSelect,
 } from "../../../components/hrmsComponent/form/input";
+import { connect } from "react-redux"
+import {
+  postData
+} from "../../../redux/actions/board/"
+import { ToastContainer } from "react-toastify"
 
 let datas ,title;
 const formSchema = Yup.object().shape({
-  name: Yup.string().required("This Field Is Required"),
-  nickname: Yup.string()
+  board_name: Yup.string().required("This Field Is Required"),
+  nick_name: Yup.string()
     .required("This Field Is Required"),
-  boardType: Yup.object()
+  zone_status: Yup.object()
     .shape({
       label: Yup.string().required(),
       value: Yup.string().required(),
@@ -32,32 +37,25 @@ class CreateBoard extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
-  handleSubmit = (values, { setSubmitting }) => {
-    const payload = {
-      ...values,
-    };
-    if(this.props.match.params.Boardid !== "0")
-    {
-      console.log("Updating Board..");
-    }
-    else {
-      console.log("Inserting Board..");
-    }
-    setTimeout(() => {
-      console.log(JSON.stringify(payload, null, 2));
-      setSubmitting(false);
-    }, 1000);
+  handleSubmit = (values) => {
+    let val = '{"board_name": "'+values.board_name+'","nick_name":"'+values.nick_name+'","zone_status":"'+values.zone_status.label+'"}';
+    this.props.postData(val);
   };
+  handleInput = (e) =>
+  {
+    e.target.value = e.target.value.charAt(0).toUpperCase()+e.target.value.slice(1).toLowerCase();
+  }
 
   render() {
     if(this.props.match.params.Boardid === "0")
     {
       datas = {
-           id: "",
-           name: "",
-           nickname: "",
-          boardType: [{
+        id: "",
+        board_name: "",
+        nick_name: "",
+        zone_status: [{
             "value": "",
             "label": ""
           }]
@@ -67,10 +65,10 @@ class CreateBoard extends React.Component {
     else
     {
       datas = {
-          id: "1",
-          name: "JAC",
-          nickname: "jac",
-          boardType: [{
+        id: "1",
+        board_name: "JAC",
+        nick_name: "jac",
+        zone_status: [{
             "value": "2",
             "label": "State"
           }]
@@ -91,9 +89,9 @@ class CreateBoard extends React.Component {
           <CardBody>
             <Formik
               initialValues={{
-                name: datas.name,
-                nickname:datas.nickname,
-                boardType: datas.boardType
+                board_name: datas.board_name,
+                nick_name:datas.nick_name,
+                zone_status: datas.zone_status
               }}
               validationSchema={formSchema}
               onSubmit={this.handleSubmit}
@@ -108,15 +106,15 @@ class CreateBoard extends React.Component {
                 <Form>
                   <FormGroup row>
                     <Col md="4" className="my-1">
-                      <Label for="boardType">Board Type</Label>
+                      <Label for="zone_status">Board Type</Label>
                       <FormikReactSelect
                         className={`${
                           errors.boardType &&
                           touched.boardType &&
                           "is-invalid"
                         }`}
-                        name="boardType"
-                        id="boardType"
+                        name="zone_status"
+                        id="zone_status"
                         value={values.boardType}
                         options={[
                           { value: "1", label: "Centeral" },
@@ -125,36 +123,38 @@ class CreateBoard extends React.Component {
                         onChange={setFieldValue}
                         onBlur={setFieldTouched}
                       />
-                      {errors.boardType && touched.boardType ? (
+                      {errors.zone_status && touched.zone_status ? (
                         <div className="invalid-tooltip mt-25">
-                          {errors.boardType}
+                          {errors.zone_status}
                         </div>
                       ) : null}
                     </Col>
                     <Col md="4" className="my-1">
-                      <Label for="name">Board Name</Label>
+                      <Label for="board_name">Board Name</Label>
                       <Field
-                        name="name"
-                        id="name"
-                        className={`form-control ${errors.name &&
-                        touched.name &&
+                        name="board_name"
+                        id="board_name"
+                        onBlur={this.handleInput}
+                        className={`form-control ${errors.board_name &&
+                        touched.board_name &&
                         "is-invalid"}`}
                       />
-                      {errors.name && touched.name ? (
-                        <div className="invalid-tooltip mt-25">{errors.name}</div>
+                      {errors.board_name && touched.board_name ? (
+                        <div className="invalid-tooltip mt-25">{errors.board_name}</div>
                       ) : null}
                     </Col>
                     <Col md="4" className="my-1">
-                      <Label for="name">Board Nick Name</Label>
+                      <Label for="nick_name">Board Nick Name</Label>
                       <Field
-                        name="nickname"
-                        id="nickname"
-                        className={`form-control ${errors.nickname &&
-                        touched.nickname &&
+                        name="nick_name"
+                        id="nick_name"
+                        onBlur={this.handleInput}
+                        className={`form-control ${errors.nick_name &&
+                        touched.nick_name &&
                         "is-invalid"}`}
                       />
-                      {errors.nickname && touched.nickname ? (
-                        <div className="invalid-tooltip mt-25">{errors.nickname}</div>
+                      {errors.nick_name && touched.nick_name ? (
+                        <div className="invalid-tooltip mt-25">{errors.nick_name}</div>
                       ) : null}
                     </Col>
                   </FormGroup>
@@ -174,8 +174,16 @@ class CreateBoard extends React.Component {
             </Formik>
           </CardBody>
         </Card>
+        <ToastContainer />
       </React.Fragment>
   )
   }
 }
-export default CreateBoard
+const mapStateToProps = state => {
+  return {
+    app: state.boardApp.role
+  }
+}
+export default connect(mapStateToProps, {
+  postData
+})(CreateBoard)

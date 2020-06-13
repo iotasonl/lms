@@ -6,119 +6,132 @@ import {
 } from "reactstrap"
 import DataTable from "react-data-table-component"
 import {Trash, Edit, Search} from "react-feather"
-import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
+import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import {Link } from "react-router-dom";
+import { connect } from "react-redux"
+import {
+  getData
+} from "../../../redux/actions/board/"
+import { ToastContainer } from "react-toastify"
 
 const CustomHeader = props => {
   return (
-      <div className="position-relative has-icon-left mb-1" style={{width:'25%' , float:'right'}}>
-        <Input value={props.value} onChange={e => props.handleFilter(e)} />
-        <div className="form-control-position">
-          <Search size="15" />
-        </div>
+    <div className="position-relative has-icon-left mb-1" style={{width:'25%' , float:'right'}}>
+      <Input value={props.value} onChange={e => props.handleFilter(e)} />
+      <div className="form-control-position">
+        <Search size="15" />
       </div>
+    </div>
   )
 }
 
+const columns =  [
+  {
+    name: "Sl.NO",
+    selector: "id",
+    sortable: true
+  },
+  {
+    name: "BOARD NAME",
+    selector: "board_name",
+    sortable: true
+  },
+  {
+    name: "BOARD NICK NAME",
+    selector: "nick_name",
+    sortable: true
+  },
+  {
+    name: "BOARD TYPE",
+    selector: "zone_status",
+    sortable: true
+  },
+  {
+    name: "STATUS",
+    selector: "status",
+    sortable: true,
+  },
+  {
+    name: "ACTION",
+    selector: "action",
+    sortable: false,
+  }
+]
+
 class BoardList extends React.Component {
-  Boardid = 12;
-  state = {
-    columns: [
-      {
-        name: "Sl.No",
-        selector: "id",
-        sortable: true
-      },
-      {
-        name: "Board Name",
-        selector: "board_name",
-        sortable: true
-      },
-      {
-        name: "Board Nick Name",
-        selector: "nick_name",
-        sortable: true
-      },
-      {
-        name: "Board Type",
-        selector: "board_type",
-        sortable: true
-      },
-      {
-        name: "Action",
-        selector: "",
-        sortable: false,
-        cell: () => {
-          return (
-            <div className="d-flex flex-column align-items-center">
-              <ul className="list-inline mb-0">
-                <li className="list-inline-item">
-                  <Link className="text-dark w-100" to={'/board-create/'+this.Boardid}>
-                    <Edit size="20" className="text-primary" />
-                  </Link>
-                </li>
-                <li className="list-inline-item">
-                  <Trash size="20" className="text-primary" />
-                </li>
-              </ul>
-            </div>
-          )
-        }
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: [],
+      value: "",
+      filteredData: [],
+    }
+  }
+
+  async componentDidMount() {
+    await this.props.getData("{}", "{}")
+  }
+
+  dataFilter = ()=>{
+    const {app: data} = this.props;
+    const {value, filteredData} = this.state;
+    let filterData = data.map((list, key)=>{
+      return {
+        id:++key,
+        board_name: list.board_name,
+        nick_name: list.nick_name,
+        zone_status: list.zone_status,
+        status: list.status === true ? "ACTIVE" : "DEACTIVE",
+        action: (
+          <div className="d-flex flex-column align-items-center">
+            <ul className="list-inline mb-0">
+              <li className="list-inline-item">
+                <Link className="text-dark w-100" to={'/board-create/'}>
+                  <Edit size="20" className="text-primary" />
+                </Link>
+              </li>
+              <li className="list-inline-item">
+                <Trash size="20" className="text-primary" />
+              </li>
+            </ul>
+          </div>
+        )
       }
-    ],
-    data: [
-      {
-        id: 1,
-        board_name: "CBSE",
-        nick_name: "cbse",
-        board_type: "Centeral",
-        action: ""
-      },
-      {
-        id: 2,
-        board_name: "ICSE",
-        nick_name: "icse",
-        board_type: "Centeral",
-        action: ""
-      },
-      {
-        id: 3,
-        board_name: "JAC",
-        nick_name: "jac",
-        board_type: "State",
-        action: ""
-      },
-      {
-        id: 4,
-        board_name: "ICSE",
-        nick_name: "icse",
-        board_type: "Centeral",
-        action: ""
-      },
-      {
-        id: 5,
-        board_name: "ICSE",
-        nick_name: "icse",
-        board_type: "Centeral",
-        action: ""
-      }
-    ],
-    value: "",
-    filteredData: []
+    });
+    if(!this.state.filterData)
+    {
+      this.setState({filterData})
+    }
+
+    if(filterData && filterData.length){
+      return (
+        <DataTable
+          className="dataTable-custom"
+          data={value.length ? filteredData : filterData}
+          columns={columns}
+          noHeader
+          pagination
+          subHeader
+          subHeaderComponent={
+            <CustomHeader handleFilter={this.handleFilter} />
+          }
+        />
+      )
+    }
   }
 
   handleFilter = e => {
     let value = e.target.value
-    let data = this.state.data
+    const {filterData} = this.state;
     let filteredData = this.state.filteredData
     this.setState({ value })
 
     if (value.length) {
-      filteredData = data.filter(item => {
+      filteredData = filterData.filter(item => {
         let startsWithCondition =
           item.board_name.toLowerCase().startsWith(value.toLowerCase()) ||
           item.nick_name.toLowerCase().startsWith(value.toLowerCase()) ||
-          item.board_type.toLowerCase().startsWith(value.toLowerCase()) ||
+          item.zone_status.toLowerCase().startsWith(value.toLowerCase()) ||
           item.id
             .toString()
             .toLowerCase()
@@ -126,7 +139,7 @@ class BoardList extends React.Component {
         let includesCondition =
           item.board_name.toLowerCase().includes(value.toLowerCase()) ||
           item.nick_name.toLowerCase().includes(value.toLowerCase()) ||
-          item.board_type.toLowerCase().includes(value.toLowerCase()) ||
+          item.zone_status.toLowerCase().includes(value.toLowerCase()) ||
           item.id
             .toString()
             .toLowerCase()
@@ -143,8 +156,6 @@ class BoardList extends React.Component {
   }
 
   render() {
-    let { columns, data, value, filteredData } = this.state
-
     return (
       <React.Fragment>
         <Breadcrumbs
@@ -157,22 +168,20 @@ class BoardList extends React.Component {
         />
         <Card>
           <CardBody className="rdt_Wrapper">
-            <DataTable
-              className="dataTable-custom"
-              data={value.length ? filteredData : data}
-              columns={columns}
-              noHeader
-              pagination
-              subHeader
-              subHeaderComponent={
-                <CustomHeader value={value} handleFilter={this.handleFilter} />
-              }
-            />
+            {this.props.app && this.dataFilter()}
           </CardBody>
         </Card>
+        <ToastContainer />
       </React.Fragment>
     )
   }
 }
 
-export default BoardList
+const mapStateToProps = state => {
+  return {
+    app: state.boardApp.board
+  }
+}
+export default connect(mapStateToProps, {
+  getData
+})(BoardList)

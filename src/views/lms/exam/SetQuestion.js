@@ -16,7 +16,7 @@ import {
 } from "../../../components/hrmsComponent/form/input";
 
 
-let datas ,title,type;
+let title;
 const SetQuestion = (props) => {
   const [questions, setQuestions] = useState([
     {
@@ -111,32 +111,32 @@ const SetQuestion = (props) => {
 
   if(props.match.params.TestId === "0")
   {
-    datas = {
-      id: "",
-      question: "",
-      answer:"",
-      option1:"",
-      option2:"",
-      option3:"",
-      option4:"",
-      option5:"",
-      marks:""
-    };
+    // datas = {
+    //   id: "",
+    //   question: "",
+    //   answer:"",
+    //   option1:"",
+    //   option2:"",
+    //   option3:"",
+    //   option4:"",
+    //   option5:"",
+    //   marks:""
+    // };
     title="Set Question";
   }
   else
   {
-    datas = {
-      id: "1",
-      question: "What is this??",
-      answer:"2",
-      option1:"Okkk",
-      option2:"Laptop",
-      option3:"watch",
-      option4:"Fun",
-      option5:"Bad",
-      marks:"100"
-    };
+    // datas = {
+    //   id: "1",
+    //   question: "What is this??",
+    //   answer:"2",
+    //   option1:"Okkk",
+    //   option2:"Laptop",
+    //   option3:"watch",
+    //   option4:"Fun",
+    //   option5:"Bad",
+    //   marks:"100"
+    // };
     title="Update Question";
   }
 

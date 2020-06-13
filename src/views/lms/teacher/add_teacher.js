@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, CardBody, CardHeader, CardTitle, Col, FormGroup, Label, Row, CustomInput } from "reactstrap";
+import { Button, Card, CardBody, CardHeader, CardTitle, Col, FormGroup, Label, Row } from "reactstrap";
 import { Form, Field, Formik } from "formik";
 import * as Yup from "yup";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
@@ -92,15 +92,12 @@ class AddTeacher extends React.Component {
                                     onSubmit={this.handleSubmit}
                                 >
                                     {({
-                                        handleSubmit,
                                         setFieldValue,
                                         setFieldTouched,
-                                        handleChange,
                                         handleBlur,
                                         values,
                                         errors,
                                         touched,
-                                        isSubmitting
                                     }) => (
                                             <Form >
                                                 <div className="row">

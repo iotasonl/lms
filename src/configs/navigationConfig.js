@@ -80,8 +80,7 @@ const navigationConfig = [
         icon: <Icon.User size={16} />,
         navLink: "/role-create/0",
         permissions: ["admin", "editor"]
-      }
-      ,
+      },
       {
         id: "subject_master",
         title: "Subject Master",
@@ -147,6 +146,31 @@ const navigationConfig = [
         permissions: ["admin", "editor"]
       }
     ]
+  },
+  {
+    id: "test",
+    title: "Test",
+    type: "collapse",
+    icon: <Icon.Clipboard size={20} />,
+    badge: "warning",
+    children: [
+      {
+        id: "attendTest",
+        title: "Attend Test",
+        type: "item",
+        icon: <Icon.Edit2 size={16} />,
+        permissions: ["admin", "editor"],
+        navLink: "/test/attend-test/0",
+      },
+      {
+        id: "result",
+        title: "Result",
+        type: "item",
+        icon: <Icon.Clipboard size={16} />,
+        permissions: ["admin", "editor"],
+        navLink: "/test/result",
+      },
+    ],
   },
   {
     type: "groupHeader",

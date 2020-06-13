@@ -1,18 +1,18 @@
 const initialState = {
-    subjects: [],
+    roles: [],
 }
 
-const subject = (state = initialState, action) => {
+const todo = (state = initialState, action) => {
     switch (action.type) {
         case "GET_SUBJECT":
             // console.log("aa", action)
-            return { ...state, subject: action.subjects }
+            return { ...state, role: action.roles }
         case "POST_SUBJECT":
             // console.log("aa", action)
-            return { ...state, subject: action.subjects }
+            return { ...state, role: action.roles }
         default:
             return state
     }
 }
 
-export default subject
+export default todo

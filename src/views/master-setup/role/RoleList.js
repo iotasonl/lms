@@ -12,6 +12,7 @@ import { connect } from "react-redux"
 import {
   getData
 } from "../../../redux/actions/role/"
+import { ToastContainer } from "react-toastify"
 
 const CustomHeader = props => {
   return (
@@ -26,23 +27,23 @@ const CustomHeader = props => {
 
 const columns =  [
   {
-    name: "Sl.No",
+    name: "Sl.NO",
     selector: "id",
     sortable: true,
     width:"80px"
   },
   {
-    name: "Role Name",
+    name: "ROLE NAME",
     selector: "role_name",
     sortable: true
   },
   {
-    name: "Status",
+    name: "STATUS",
     selector: "status",
     sortable: true,
   },
   {
-    name: "Action",
+    name: "ACTION",
     selector: "action",
     sortable: false,
   }
@@ -67,6 +68,7 @@ class RoleList extends React.Component {
     const {value, filteredData} = this.state;
     let filterData = data.map((list, key)=>{
       return {
+        id : ++key,
         role_name: list.role_name,
         status: list.status === true ? "ACTIVE" : "DEACTIVE",
         action: (
@@ -89,7 +91,7 @@ class RoleList extends React.Component {
     {
       this.setState({filterData})
     }
-    
+
     if(filterData && filterData.length){
       return (
         <DataTable
@@ -154,6 +156,7 @@ class RoleList extends React.Component {
             {this.props.app && this.dataFilter()}
           </CardBody>
         </Card>
+        <ToastContainer />
       </React.Fragment>
     )
   }

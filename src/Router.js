@@ -36,6 +36,9 @@ const CreateTest = lazy(() => import("./views/lms/exam/CreateTest"));
 const TestList = lazy(() => import("./views/lms/exam/TestList"));
 const SetQuestion = lazy(() => import("./views/lms/exam/SetQuestion"));
 // /Material
+const AttendTest = lazy(() => import("./views/lms/test/AttendTest"));
+// const Result = lazy(() => import("./views/lms/test/Result"));
+
 const list_teacher = lazy(() => import("./views/lms/teacher/list_teacher"));
 const list_teacher_dt = lazy(() =>
   import("./views/lms/teacher/list_teacher_dt")
@@ -322,7 +325,8 @@ class AppRouter extends React.Component {
           <AppRoute path="/student/add-student" component={AddStudent} />
           <AppRoute path="/student/student-list" component={studentList} />
           <AppRoute path="/student/student-profile/:StudentId" component={StudentProfile} />
-
+          <AppRoute path={"/test/attend-test/:StudentId"} component={AttendTest}/>
+          {/*<AppRoute path={"/test/result"} component={Result}></AppRoute>*/}
           <AppRoute
             path="/study-material/add-study-material/:StudyMaterialId"
             component={AddStudyMaterial}

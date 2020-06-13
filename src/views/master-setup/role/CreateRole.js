@@ -1,6 +1,5 @@
 import React from "react";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-
 import {
   Card,
   CardBody,
@@ -32,7 +31,7 @@ class CreateRole extends React.Component {
   };
 
   render() {
-    if(this.props.match.params.roleId === "0")
+    if(this.props.match.params.RoleId === "0")
     {
       datas = {id: "", role_name: ""};
       title="Create Role";
@@ -62,11 +61,8 @@ class CreateRole extends React.Component {
               onSubmit={this.handleSubmit}
             >
               {({
-                  setFieldValue,
-                  setFieldTouched,
                   errors,
                   touched,
-                  values
                 }) => (
                 <Form>
                   <FormGroup row>

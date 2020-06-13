@@ -123,6 +123,31 @@ const horizontalMenuConfig = [
     ]
   },
   {
+    id: "test",
+    title: "Test",
+    type: "dropdown",
+    icon: <Icon.Clipboard size={20} />,
+    badge: "warning",
+    children: [
+      {
+        id: "attendTest",
+        title: "Attend Test",
+        type: "item",
+        icon: <Icon.Edit2 size={16} />,
+        permissions: ["admin", "editor"],
+        navLink: "/test/attend-test/0",
+      },
+      {
+        id: "result",
+        title: "Result",
+        type: "item",
+        icon: <Icon.Clipboard size={16} />,
+        permissions: ["admin", "editor"],
+        navLink: "/test/result",
+      },
+    ],
+  },
+  {
     id: "apps",
     title: "Apps",
     type: "dropdown",

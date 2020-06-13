@@ -7,11 +7,8 @@ import {
   FormGroup,
   Label,
   Row,
-  Input,
 } from "reactstrap";
-import Select from "react-select";
 import { Form, Field, Formik } from "formik";
-import * as Yup from "yup";
 import Breadcrumbs from "../../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import {
   FormikReactSelect,
@@ -22,24 +19,24 @@ class AddTeacher extends React.Component {
   guardianPhone = 1234;
   handleGuardianPhone = (e) => {
     console.log(e.target.value);
-    let guardianPhoneInput = e.target.value;
-    let guardianDetails;
-    if (guardianPhoneInput !== this.guardianPhone) {
+    // let guardianPhoneInput = e.target.value;
+    // let guardianDetails;
+    // if (guardianPhoneInput !== this.guardianPhone) {
       // guardianDetails =
-    } else {
+    // } else {
       // guardianDetails =
-    }
+    // }
   };
 
   render() {
-    const colourOptions = [
-      { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-      { value: "blue", label: "Blue", color: "#0052CC", isFixed: true },
-      { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
-      { value: "red", label: "Red", color: "#FF5630", isFixed: false },
-      { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
-      { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false },
-    ];
+    // const colourOptions = [
+    //   { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
+    //   { value: "blue", label: "Blue", color: "#0052CC", isFixed: true },
+    //   { value: "purple", label: "Purple", color: "#5243AA", isFixed: true },
+    //   { value: "red", label: "Red", color: "#FF5630", isFixed: false },
+    //   { value: "orange", label: "Orange", color: "#FF8B00", isFixed: false },
+    //   { value: "yellow", label: "Yellow", color: "#FFC400", isFixed: false },
+    // ];
 
     return (
       <React.Fragment>
@@ -89,7 +86,6 @@ class AddTeacher extends React.Component {
                     touched,
                     handleChange,
                     handleBlur,
-                    handleSubmit,
                     setFieldValue,
                     setFieldTouched,
                     isSubmitting,
