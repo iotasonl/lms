@@ -90,74 +90,74 @@ class CreateBoard extends React.Component {
                 touched,
                 values,
               }) => (
-                <Form>
-                  <FormGroup row>
-                    <Col md="4" className="my-1">
-                      <Label for="boardType">Board Type</Label>
-                      <FormikReactSelect
-                        className={`${
-                          errors.boardType && touched.boardType && "is-invalid"
-                        }`}
-                        name="boardType"
-                        id="boardType"
-                        defaultValue={values.boardType}
-                        options={[
-                          { value: "1", label: "Centeral" },
-                          { value: "2", label: "State" },
-                        ]}
-                        onChange={setFieldValue}
-                        onBlur={setFieldTouched}
-                      />
-                      {errors.boardType && touched.boardType ? (
-                        <div className="invalid-tooltip mt-25">
-                          {errors.boardType}
-                        </div>
-                      ) : null}
-                    </Col>
-                    <Col md="4" className="my-1">
-                      <Label for="name">Board Name</Label>
-                      <Field
-                        name="name"
-                        id="name"
-                        className={`form-control ${
-                          errors.name && touched.name && "is-invalid"
-                        }`}
-                      />
-                      {errors.name && touched.name ? (
-                        <div className="invalid-tooltip mt-25">
-                          {errors.name}
-                        </div>
-                      ) : null}
-                    </Col>
-                    <Col md="4" className="my-1">
-                      <Label for="name">Board Nick Name</Label>
-                      <Field
-                        name="nickname"
-                        id="nickname"
-                        className={`form-control ${
-                          errors.nickname && touched.nickname && "is-invalid"
-                        }`}
-                      />
-                      {errors.nickname && touched.nickname ? (
-                        <div className="invalid-tooltip mt-25">
-                          {errors.nickname}
-                        </div>
-                      ) : null}
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col sm="12" className="my-2">
-                      <Button.Ripple
-                        color="primary"
-                        type="submit"
-                        className="mb-1 mr-1"
-                      >
-                        Submit
+                  <Form>
+                    <FormGroup row>
+                      <Col md="4" className="my-1">
+                        <Label for="boardType">Board Type</Label>
+                        <FormikReactSelect
+                          className={`${
+                            errors.boardType && touched.boardType && "is-invalid"
+                            }`}
+                          name="boardType"
+                          id="boardType"
+                          defaultValue={values.boardType}
+                          options={[
+                            { value: "1", label: "Centeral" },
+                            { value: "2", label: "State" },
+                          ]}
+                          onChange={setFieldValue}
+                          onBlur={setFieldTouched}
+                        />
+                        {errors.boardType && touched.boardType ? (
+                          <div className="invalid-tooltip mt-25">
+                            {errors.boardType}
+                          </div>
+                        ) : null}
+                      </Col>
+                      <Col md="4" className="my-1">
+                        <Label for="name">Board Name</Label>
+                        <Field
+                          name="name"
+                          id="name"
+                          className={`form-control ${
+                            errors.name && touched.name && "is-invalid"
+                            }`}
+                        />
+                        {errors.name && touched.name ? (
+                          <div className="invalid-tooltip mt-25">
+                            {errors.name}
+                          </div>
+                        ) : null}
+                      </Col>
+                      <Col md="4" className="my-1">
+                        <Label for="name">Board Nick Name</Label>
+                        <Field
+                          name="nickname"
+                          id="nickname"
+                          className={`form-control ${
+                            errors.nickname && touched.nickname && "is-invalid"
+                            }`}
+                        />
+                        {errors.nickname && touched.nickname ? (
+                          <div className="invalid-tooltip mt-25">
+                            {errors.nickname}
+                          </div>
+                        ) : null}
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col sm="12" className="my-2">
+                        <Button.Ripple
+                          color="primary"
+                          type="submit"
+                          className="mb-1 mr-1"
+                        >
+                          Submit
                       </Button.Ripple>
-                    </Col>
-                  </FormGroup>
-                </Form>
-              )}
+                      </Col>
+                    </FormGroup>
+                  </Form>
+                )}
             </Formik>
           </CardBody>
         </Card>

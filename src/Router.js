@@ -32,8 +32,8 @@ const ClassList = lazy(() => import("./views/master-setup/class/ClassList"));
 const CreateClass = lazy(() =>
   import("./views/master-setup/class/CreateClass")
 );
-const Createrole= lazy(() => import("./views/master-setup/role/CreateRole") )
-const Listrole = lazy(() => import("./views/master-setup/role/RoleList") )
+const CreateRole= lazy(() => import("./views/master-setup/role/CreateRole") )
+const ListRole = lazy(() => import("./views/master-setup/role/RoleList") )
 
 const Createsubject= lazy(() => import("./views/master-setup/subject/CreateSubject") )
 const Listsubjcet = lazy(() => import("./views/master-setup/subject/SubjectList") )
@@ -312,13 +312,13 @@ class AppRouter extends React.Component {
             path="/board-list"
             component={Readboard}
           />
-          <AppRoute path="/class-create/:ClassId" component={Createclass} />
-          <AppRoute path="/class-list" component={Listclass} />
-          <AppRoute path="/role-create/:RoleId" component={Createrole} />
-          <AppRoute path="/role-list" component={Listrole} />
-          <AppRoute path="/subject-create/:subjectId" component={Createsubject} />
-          <AppRoute path="/subject-list" component={Listsubjcet} />
+          
           {/*/Master Setup*/}
+          <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
+          <AppRoute path="/role/list" component={RoleList} />
+          <AppRoute path="/role/create/:roleId" component={CreateRole} />
+          <AppRoute path="/subject/list" component={SubjectList} />
+          <AppRoute path="/subject/create/:subjectId" component={CreateSubject} />
           <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
           <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
           <AppRoute path="/syllabus/syllabusList" component={syllabusList} />

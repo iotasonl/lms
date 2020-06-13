@@ -16,7 +16,7 @@ export const getSubject = routeParams => {
                 // console.log("ddr", result.data.response_data);
                 dispatch({
                     type: "GET_SUBJECT",
-                    roles: result.data.response_data,
+                    subjectReducer: result.data.response_data,
                 })
             })
             .catch(err => console.log("Error", err))
@@ -39,8 +39,9 @@ export const postSubject = json_data => {
                 // console.log("ddr", result.data);
                 dispatch({
                     type: "POST_SUBJECT",
-                    roles: result.data,
+                    subjectReducer: result.data,
                 })
+                dispatch(getSubject())
                 history.push("/subject/list")
             })
             .catch(err => console.log("Error", err))

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux"
 import { getData } from "../../../redux/actions/role/"
 import moment from 'moment'
+import { TransverseLoading  } from 'react-loadingg';
 
 const CustomHeader = props => {
   return (
@@ -24,12 +25,12 @@ const CustomHeader = props => {
   )
 }
 
-const columns =  [
+const columns = [
   {
     name: "Sl.No",
     selector: "id",
     sortable: true,
-    width:"80px"
+    width: "80px"
   },
   {
     name: "Role Name",
@@ -67,13 +68,14 @@ class RoleList extends React.Component {
     await this.props.getData('{}', '{}')
   }
 
-  dataFilter = ()=>{
-    console.log("ss", this.props)
-    const {app: data} = this.props;
-    const {value, filteredData} = this.state;
-    let filterData = data.map((list, key)=>{
+  dataFilter = () => {
+    
+    const { role: data, loading } = this.props.app;
+    const { value, filteredData } = this.state;
+    // console.log("ss", loading)
+    let filterData = data.map((list, key) => {
       return {
-        id: key+1,
+        id: key + 1,
         role_name: list.role_name,
         c_date: moment(list.c_date).format('DD-MM-YYYY'),
         status: (list.status === true ? (
@@ -84,12 +86,12 @@ class RoleList extends React.Component {
             <Badge color="danger" className="mr-1 mb-1">
               INACTIVE
             </Badge>
-        )),
+          )),
         action: (
           <div className="d-flex flex-column align-items-center">
             <ul className="list-inline mb-0">
               <li className="list-inline-item">
-                <Link className="text-dark w-100" to={'/role/create/'+list.id}>
+                <Link className="text-dark w-100" to={'/role/create/' + list.id}>
                   <Edit size="20" className="text-primary" />
                 </Link>
               </li>
@@ -103,12 +105,18 @@ class RoleList extends React.Component {
         )
       }
     });
-    if(!this.state.filterData)
-    {
-      this.setState({filterData})
+    if (!this.state.filterData) {
+      this.setState({ filterData })
     }
-    
-    if(filterData && filterData.length){
+
+    if(loading){
+      return(
+        <div>
+          <TransverseLoading  />
+        </div>
+      )
+    }else{
+    if (filterData && filterData.length) {
       return (
         <DataTable
           className="dataTable-custom"
@@ -122,12 +130,12 @@ class RoleList extends React.Component {
           }
         />
       )
-    }
+    }}
   }
 
   handleFilter = e => {
     let value = e.target.value
-    const {filterData} = this.state;
+    const { filterData } = this.state;
     let filteredData = this.state.filteredData
     this.setState({ value })
 
@@ -157,11 +165,18 @@ class RoleList extends React.Component {
   }
 
   render() {
+    console.log("aaa", this.props.app)
+    if (this.props.loading) {
+      return <div>Loading</div>
+    }
+    if (this.props.error) {
+      return <div style={{ color: 'red' }}>ERROR: {this.props.error}</div>
+    }
     return (
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
-            { title: "Create Role ", link: "/role-create/"+this.RoleId },
+            { title: "Create Role ", link: "/role-create/" + this.RoleId },
           ]}
           breadCrumbTitle="Role List"
           breadCrumbParent="Master Setup"
@@ -178,9 +193,9 @@ class RoleList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  // console.log("state", state)
+  console.log("state", state.roleApp)
   return {
-    app: state.roleApp.role
+    app: state.roleApp,
   }
 }
 export default connect(mapStateToProps, {

@@ -1,18 +1,13 @@
-import React, { Component, Fragment } from "react"
-import {
-  Card,
-  CardBody,
-  Input,
-  Button
-} from "reactstrap"
+import React, { Fragment } from "react"
+import { Card, CardBody, Input, Button, Badge } from "reactstrap"
 import DataTable from "react-data-table-component"
 import { Trash, Edit, Search } from "react-feather"
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux"
-import {
-  getSubject
-} from "../../../redux/actions/subject/"
+import { getSubject } from "../../../redux/actions/subject/"
+import moment from 'moment'
+
 const CustomHeader = props => {
   return (
     <Fragment>
@@ -58,7 +53,7 @@ const columns = [
   }
 ]
 
-class RoleList extends React.Component {
+class SubjectList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -80,13 +75,21 @@ class RoleList extends React.Component {
         id: key + 1,
         subject_name: list.subject_name,
         subject_nick_name: list.subject_nick_name,
-        status: list.status === true ? "ACTIVE" : "DEACTIVE",
-        c_date: list.c_date.$date,
+        c_date: moment(list.c_date).format('DD-MM-YYYY'),
+        status: (list.status === true ? (
+          <Badge color="primary" className="mr-1 mb-1">
+            ACTIVE
+          </Badge>
+        ) : (
+            <Badge color="danger" className="mr-1 mb-1">
+              INACTIVE
+            </Badge>
+          )),
         action: (
           <div className="d-flex flex-column align-items-center">
             <ul className="list-inline mb-0">
               <li className="list-inline-item">
-                <Link className="text-dark w-100" to={'create/' + list._id.$oid}>
+                <Link className="text-dark w-100" to={'/role-create/'}>
                   <Edit size="20" className="text-primary" />
                 </Link>
               </li>
@@ -107,7 +110,6 @@ class RoleList extends React.Component {
       return (
         <DataTable
           className="dataTable-custom"
-          // data={filterData}
           data={value.length ? filteredData : filterData}
           columns={columns}
           noHeader
@@ -152,11 +154,7 @@ class RoleList extends React.Component {
     }
   }
 
-
-  // [{ "_id": "5ec4ff57010068f4765f41ce" , "subject_name": "Admin", "status": true, "c_date": 1589988526809, "d_date": 1589988526809 }]
-
   render() {
-    // console.log("props", this.state)
     return (
       <React.Fragment>
         <Breadcrumbs
@@ -177,13 +175,12 @@ class RoleList extends React.Component {
   }
 }
 
-
 const mapStateToProps = state => {
   console.log("a", state)
   return {
-    app: state.subjectApp.role
+    app: state.subjectApp.subjectAction
   }
 }
 export default connect(mapStateToProps, {
   getSubject
-})(RoleList)
+})(SubjectList)
