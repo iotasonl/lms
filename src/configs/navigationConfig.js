@@ -28,7 +28,7 @@ const navigationConfig = [
     ],
   },
   {
-    id: "sybllabus",
+    id: "syllabus",
     title: "Syllabus",
     type: "collapse",
     icon: <Icon.Home size={20} />,

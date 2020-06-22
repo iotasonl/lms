@@ -10,6 +10,9 @@ const classes = (state = initialState, action) => {
         case "POST_CLASS":
             // console.log("aa", action)
             return {...state, class: action.classes }
+        case "UPDATE_CLASS":
+          // console.log("aa", action)
+          return {...state, class: action.classes }
         default:
             return state
     }

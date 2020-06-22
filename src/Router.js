@@ -7,19 +7,26 @@ import Spinner from "./components/@vuexy/spinner/Loading-spinner";
 import knowledgeBaseCategory from "./views/pages/knowledge-base/Category";
 import knowledgeBaseQuestion from "./views/pages/knowledge-base/Questions";
 import { ContextLayout } from "./utility/context/Layout";
+import RoleList from "./views/master-setup/role/RoleList";
 
 // Master Setup
-const Createboard = lazy(() => import("./views/master-setup/board/CreateBoard") )
-const Readboard = lazy(() => import("./views/master-setup/board/BoardList") )
+const SubjectList = lazy(() =>
+  import("./views/master-setup/subject/SubjectList")
+);
+const CreateSubject = lazy(() =>
+  import("./views/master-setup/subject/CreateSubject")
+);
 
-const Createclass = lazy(() => import("./views/master-setup/class/CreateClass") )
-const Listclass = lazy(() => import("./views/master-setup/class/ClassList") )
+const BoardList = lazy(() => import("./views/master-setup/board/BoardList"));
+const CreateBoard = lazy(() =>
+  import("./views/master-setup/board/CreateBoard")
+);
 
-const Createrole= lazy(() => import("./views/master-setup/role/CreateRole") )
-const Listrole = lazy(() => import("./views/master-setup/role/RoleList") )
-
-const Createsubject= lazy(() => import("./views/master-setup/subject/CreateSubject") )
-const Listsubjcet = lazy(() => import("./views/master-setup/subject/SubjectList") )
+const ClassList = lazy(() => import("./views/master-setup/class/ClassList"));
+const CreateClass = lazy(() =>
+  import("./views/master-setup/class/CreateClass")
+);
+const CreateRole= lazy(() => import("./views/master-setup/role/CreateRole") )
 
 // Route-based code splitting
 const add_teacher = lazy(() => import("./views/lms/teacher/add_teacher"));
@@ -292,19 +299,45 @@ class AppRouter extends React.Component {
           {/*Master Setup*/}
           <AppRoute
             path="/board-create/:Boardid"
-            component={Createboard}
+            component={CreateBoard}
           />
           <AppRoute
             path="/board-list"
-            component={Readboard}
+            component={BoardList}
           />
-          <AppRoute path="/class-create/:ClassId" component={Createclass} />
-          <AppRoute path="/class-list" component={Listclass} />
-          <AppRoute path="/role-create/:RoleId" component={Createrole} />
-          <AppRoute path="/role-list" component={Listrole} />
-          <AppRoute path="/subject-create/:subjectId" component={Createsubject} />
-          <AppRoute path="/subject-list" component={Listsubjcet} />
+          <AppRoute
+            path="/class-list"
+            component={ClassList}
+          />
+          <AppRoute
+            path="/class-create/:ClassId"
+            component={CreateClass}
+          />
+
+          <AppRoute
+            path="/role-list"
+            component={RoleList}
+          />
+          <AppRoute
+            path="/role-create/:RoleId"
+            component={CreateRole}
+          />
+
+          <AppRoute
+            path="/subject-list"
+            component={SubjectList}
+          />
+          <AppRoute
+            path="/subject-create/:SubjectId"
+            component={CreateSubject}
+          />
+
           {/*/Master Setup*/}
+          <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
+          <AppRoute path="/role/list" component={RoleList} />
+          <AppRoute path="/role/create/:roleId" component={CreateRole} />
+          <AppRoute path="/subject/list" component={SubjectList} />
+          <AppRoute path="/subject/create/:subjectId" component={CreateSubject} />
           <AppRoute path="/teacher/list_teacher_dt" component={list_teacher_dt} />
           <AppRoute path="/syllabus/addSyllabus/0" component={addSyllabus} />
           <AppRoute path="/syllabus/syllabusList" component={syllabusList} />

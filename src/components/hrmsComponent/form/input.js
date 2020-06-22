@@ -38,7 +38,6 @@ export class CustomCheckbox extends React.Component {
 }
 export class FormikReactSelect extends React.Component {
   handleChange = (value) => {
-    console.log("hi");
     this.props.onChange(this.props.name, value);
   };
   handleBlur = () => {
@@ -49,6 +48,7 @@ export class FormikReactSelect extends React.Component {
       <Select
         className={`react-select ${this.props.className}`}
         classNamePrefix="react-select"
+        defaultValue={this.props.defaultValue}
         options={this.props.options}
         isMulti={this.props.isMulti}
         onChange={this.handleChange}

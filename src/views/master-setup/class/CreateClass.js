@@ -12,12 +12,10 @@ import * as Yup from "yup"
 import Breadcrumbs from "../../component/breadCrumbs/BreadCrumb";
 import { connect } from "react-redux"
 import {
-  postData
+  postData, getData, updateData
 } from "../../../redux/actions/class/"
 import { ToastContainer } from "react-toastify"
-
-let datas,title ;
-
+import {history} from "../../../history";
 const formSchema = Yup.object().shape({
   class_name: Yup.string().required("This Field Is Required"),
   class_numeric_name: Yup.number()
@@ -26,13 +24,47 @@ const formSchema = Yup.object().shape({
 class CreateClass extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      id: "",
+      class_name: "",
+      class_numeric_name: "",
+      title: 'Create Class'
+    }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
+  async componentDidMount() {
+    if(this.props.match.params.ClassId !== "0")
+    {
+      const jsonData = '{}';
+      const wClause = '{"class_name":"' + this.props.match.params.ClassId+'"}';
+      await this.props.getData(jsonData, wClause);
+      console.log(this.props.app[0].class_name);
+      if(this.props.app.length) {
+        this.setState({
+          id: this.props.app[0].id,
+          class_name: this.props.app[0].class_name,
+          class_numeric_name: this.props.app[0].class_numeric_name,
+          title: "Update Class",
+        })
+      }
+      else {
+        history.push("/404")
+      }
+    }
+  }
   handleSubmit = (values) => {
-    let val = '{"class_name":"'+values.class_name+'","class_numeric_name":"'+values.class_numeric_name+'"}';
-    // const role = JSON.stringify(values, null, 2);
-    this.props.postData(val);
+    if(this.props.match.params.ClassId === "0")
+    {
+      let val = '{"class_name":"' + values.class_name + '","class_numeric_name":"' + values.class_numeric_name + '"}';
+      this.props.postData(val);
+    }
+    else{
+      console.log(this.props.match.params.ClassId);
+      let val = '{"class_name":"' + values.class_name + '","class_numeric_name":"' + values.class_numeric_name + '"}';
+      const wClause = '{"class_name":"' + this.props.match.params.ClassId+'"}';
+      this.props.updateData(val, wClause);
+    }
   };
   handleInput = (e) =>
   {
@@ -40,32 +72,33 @@ class CreateClass extends React.Component {
   }
 
   render() {
-    if(this.props.match.params.ClassId === "0")
-    {
-      datas = {class_name: "", class_numeric_name: ""};
-      title="Create Class"
-    }
-    else
-    {
-      datas = {class_name: "Two", class_numeric_name: "2"};
-      title="Update Class"
-    }
+    // if(this.props.match.params.ClassId === "0")
+    // {
+    //   datas = {class_name: "", class_numeric_name: ""};
+    //   title="Create Class"
+    // }
+    // else
+    // {
+    //   datas = {class_name: "Two", class_numeric_name: "2"};
+    //   title="Update Class"
+    // }
     return (
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
             { title: "Class List", link: "/class-list" },
           ]}
-          breadCrumbTitle={title}
+          breadCrumbTitle={this.state.title}
           breadCrumbParent="Master Setup"
           breadCrumbActive="Class"
         />
         <Card>
           <CardBody>
             <Formik
+              enableReinitialize={true}
               initialValues={{
-                class_name: datas.class_name,
-                class_numeric_name: datas.class_numeric_name
+                class_name: this.state.class_name,
+                class_numeric_name: this.state.class_numeric_name
               }}
               validationSchema={formSchema}
               onSubmit={this.handleSubmit}
@@ -81,7 +114,7 @@ class CreateClass extends React.Component {
                       <Field
                         name="class_name"
                         id="class_name"
-                        onKeyUp={this.handleInput}
+                        // onKeyUp={this.handleInput}
                         className={`form-control ${errors.class_name &&
                         touched.class_name &&
                         "is-invalid"}`}
@@ -132,5 +165,7 @@ const mapStateToProps = state => {
   }
 }
 export default connect(mapStateToProps, {
-  postData
+  postData,
+  getData,
+  updateData
 })(CreateClass)

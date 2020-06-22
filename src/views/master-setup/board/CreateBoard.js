@@ -13,13 +13,10 @@ import * as Yup from "yup"
 import {
   FormikReactSelect,
 } from "../../../components/hrmsComponent/form/input";
-import { connect } from "react-redux"
-import {
-  postData
-} from "../../../redux/actions/board/"
+import {connect} from "react-redux";
+import {postData, getData , updateData} from "../../../redux/actions/board";
 import { ToastContainer } from "react-toastify"
-
-let datas ,title;
+import { history } from "../../../history";
 const formSchema = Yup.object().shape({
   board_name: Yup.string().required("This Field Is Required"),
   nick_name: Yup.string()
@@ -36,62 +33,99 @@ const formSchema = Yup.object().shape({
 class CreateBoard extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-  }
-  handleSubmit = (values) => {
-    let val = '{"board_name": "'+values.board_name+'","nick_name":"'+values.nick_name+'","zone_status":"'+values.zone_status.label+'"}';
-    this.props.postData(val);
-  };
-  handleInput = (e) =>
-  {
-    e.target.value = e.target.value.charAt(0).toUpperCase()+e.target.value.slice(1).toLowerCase();
-  }
-
-  render() {
-    if(this.props.match.params.Boardid === "0")
-    {
-      datas = {
+    this.state = {
         id: "",
         board_name: "",
         nick_name: "",
         zone_status: [{
-            "value": "",
-            "label": ""
-          }]
-        };
-        title="Create Board";
+          "value": "",
+          "label": ""
+        }],
+      title: 'Create Board'
     }
-    else
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  async componentDidMount() {
+    if(this.props.match.params.Boardid !== "0")
     {
-      datas = {
-        id: "1",
-        board_name: "JAC",
-        nick_name: "jac",
-        zone_status: [{
-            "value": "2",
-            "label": "State"
-          }]
-        };
-       title="Update Board";
+      const jsonData = '{}';
+      const wClause = '{"board_name":"' + this.props.match.params.Boardid+'"}';
+      await this.props.getData(jsonData, wClause);
+      if(this.props.app.length) {
+        this.setState({
+          id: this.props.app[0].id,
+          board_name: this.props.app[0].board_name,
+          nick_name: this.props.app[0].nick_name,
+          zone_status: [{
+            "value": this.props.app[0].zone_status,
+            "label": this.props.app[0].zone_status
+          }],
+          title: "Update Board",
+        })
+      }
+      else {
+        history.push("/404")
+      }
     }
+  }
+  handleSubmit = (values) => {
+    if(this.props.match.params.Boardid === "0")
+    {
+      let val = '{"board_name":"' + values.board_name + '","nick_name":"' + values.nick_name + '","zone_status":"' + values.zone_status.label + '"}';
+      this.props.postData(val);
+    }
+    else{
+      let val = '{"board_name":"' + values.board_name + '","nick_name":"' + values.nick_name + '","zone_status":"' + values.zone_status.label + '"}';
+      const wClause = '{"board_name":"' + this.props.match.params.Boardid+'"}';
+      this.props.updateData(val, wClause);
+    }
+  };
+
+  render() {
+    // if(this.props.match.params.Boardid === "0")
+    // {
+    //   datas = {
+    //     id: "",
+    //     board_name: "",
+    //     nick_name: "",
+    //     zone_status: [{
+    //       "value": "",
+    //       "label": ""
+    //     }]
+    //   };
+    //   title="Create Board";
+    // }
+    // else
+    // {
+    //   datas = {
+    //     id: "1",
+    //     board_name: "JAC",
+    //     nick_name: "jac",
+    //     zone_status: [{
+    //       "value": "2",
+    //       "label": "State"
+    //     }]
+    //   };
+    //   title="Update Board";
+    // }
     return (
       <React.Fragment>
         <Breadcrumbs
           breadCrumbLinks={[
             { title: "Board List", link: "/board-list" },
           ]}
-          breadCrumbTitle={title}
+          breadCrumbTitle={this.state.title}
           breadCrumbParent="Master Setup"
           breadCrumbActive="Board"
         />
         <Card>
           <CardBody>
             <Formik
+              enableReinitialize={true}
               initialValues={{
-                board_name: datas.board_name,
-                nick_name:datas.nick_name,
-                zone_status: datas.zone_status
+                board_name: this.state.board_name,
+                nick_name:this.state.nick_name,
+                zone_status: this.state.zone_status
               }}
               validationSchema={formSchema}
               onSubmit={this.handleSubmit}
@@ -115,7 +149,7 @@ class CreateBoard extends React.Component {
                         }`}
                         name="zone_status"
                         id="zone_status"
-                        value={values.boardType}
+                        value={values.zone_status}
                         options={[
                           { value: "1", label: "Centeral" },
                           { value: "2", label: "State" },
@@ -134,7 +168,6 @@ class CreateBoard extends React.Component {
                       <Field
                         name="board_name"
                         id="board_name"
-                        onBlur={this.handleInput}
                         className={`form-control ${errors.board_name &&
                         touched.board_name &&
                         "is-invalid"}`}
@@ -148,7 +181,6 @@ class CreateBoard extends React.Component {
                       <Field
                         name="nick_name"
                         id="nick_name"
-                        onBlur={this.handleInput}
                         className={`form-control ${errors.nick_name &&
                         touched.nick_name &&
                         "is-invalid"}`}
@@ -174,16 +206,18 @@ class CreateBoard extends React.Component {
             </Formik>
           </CardBody>
         </Card>
-        <ToastContainer />
+        <ToastContainer/>
       </React.Fragment>
-  )
+    )
   }
 }
 const mapStateToProps = state => {
   return {
-    app: state.boardApp.role
+    app: state.boardApp.board
   }
 }
 export default connect(mapStateToProps, {
-  postData
+  postData,
+  getData,
+  updateData
 })(CreateBoard)

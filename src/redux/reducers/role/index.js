@@ -1,18 +1,22 @@
 const initialState = {
-    roles: [],
+    role: [],
+    loading: false,
+    error: ''
 }
 
-const todo = (state = initialState, action) => {
+const role = (state = initialState, action) => {
     switch (action.type) {
+        case "LOADING": 
+            return {...state, loading: true, error: '' };
         case "GET_USERS":
-            // console.log("aa", action)
-            return { ...state, role: action.roles}
+            return {...state, loading: false, role: action.roles }
         case "POST_ROLE":
-            // console.log("aa", action)
-            return { ...state, role: action.roles }
+            return {...state, role: action.roles }
+        case "ERROR":
+            return { ...state, error:action.err, role: '' }
         default:
             return state
     }
 }
 
-export default todo
+export default role

@@ -80,7 +80,7 @@ class ClassList extends React.Component {
           <div className="d-flex flex-column align-items-center">
             <ul className="list-inline mb-0">
               <li className="list-inline-item">
-                <Link className="text-dark w-100" to={'/board-create/'}>
+                <Link className="text-dark w-100" to={'/class-create/'+list.class_name}>
                   <Edit size="20" className="text-primary" />
                 </Link>
               </li>
